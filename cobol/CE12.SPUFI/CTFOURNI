@@ -1,0 +1,16 @@
+   --  DROP   TABLE clients   ;
+   --  COMMIT ;
+   --  DROP INDEX  IXTCLIE_ID ;
+---------------------
+--     DROP   TABLE fournisseur ;
+--     COMMIT ;
+-- FOURNISSEURS(id_fournisseur, nom, adresse)
+----------------------------------
+    CREATE TABLE fournisseurs(
+	      id_fournisseur INT          not null PRIMARY KEY   ,
+       nom            VARCHAR(255) NOT NULL,
+       pays           VARCHAR(255) NOT NULL
+    )
+    in database  zerdb
+    ;
+----------------------------------

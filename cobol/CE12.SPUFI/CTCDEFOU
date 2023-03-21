@@ -1,0 +1,32 @@
+   --  DROP INDEX  IXTCLIE_ID ;
+   --  DROP TABLE  CDEFOU     ;
+   --  COMMIT ;
+ --------------------
+   --  SELECT * FROM CDEFOU   ;
+   --  select * From produits ;
+-----------------------------------------------------------------
+-- PROVIENT(#id_produit,#id_fournisseur prix_achat)
+-- achats
+-----------------------------------------------------------------
+     CREATE TABLE CDEFOU(
+        ID_FOURNISSEUR  INT   NOT NULL ,
+	       ID_PRODUIT      INT   NOT NULL ,
+        DATE_APPRO      date        not NULL ,
+----         WITH DEFAULT CURRENT DATE,
+        STATUT          CHAR(1) NOT NULL WITH DEFAULT 'C' ,
+        PRIX_ACHAT      FLOAT,
+        QUANTITE        INT,
+        PRIMARY KEY(ID_PRODUIT, ID_FOURNISSEUR, DATE_APPRO),
+        CONSTRAINT FK_PRODUITS_CDEFOU FOREIGN KEY(ID_PRODUIT)
+            REFERENCES PRODUITS(ID_PRODUIT),
+        CONSTRAINT FK_FOURNISSEURS_CDEFOU
+                FOREIGN KEY(ID_FOURNISSEUR)
+            REFERENCES fournisseurs(id_fournisseur)
+      )
+       IN DATABASE ZERDB
+      ;
+--      PRIMARY KEY(id_produit, id_fournisseur),
+      commit;
+      select  *
+      from  CDEFOU
+      ;

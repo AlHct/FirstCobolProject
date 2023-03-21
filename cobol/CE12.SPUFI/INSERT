@@ -1,0 +1,458 @@
+-- insertion dans la table clients
+insert into clients (id_client, nom, prenom, ville) values
+(1, 'Hyatt', 'Battisson', 'Magan');
+insert into clients (id_client, nom, prenom, ville) values
+(2, 'Anstice', 'Whaplington', 'Heping');
+insert into clients (id_client, nom, prenom, ville) values
+(3, 'Fredrika', 'Hallwood', 'Hagfors');
+insert into clients (id_client, nom, prenom, ville) values
+(4, 'Beverlie', 'Warret', 'Toulouse');
+insert into clients (id_client, nom, prenom, ville) values
+(5, 'Kellen', 'Fake', 'Árgos');
+insert into clients (id_client, nom, prenom, ville) values
+(6, 'Hamil', 'Owbridge', 'Ipaba');
+insert into clients (id_client, nom, prenom, ville) values
+(7, 'Lisbeth', 'Miranda', 'Jingmen');
+insert into clients (id_client, nom, prenom, ville) values
+(8, 'Johnathan', 'Salan', 'Doyong');
+insert into clients (id_client, nom, prenom, ville) values
+(9, 'Adena', 'Camilleri', 'Ust’-Kut');
+insert into clients (id_client, nom, prenom, ville) values
+(10, 'Patten', 'Swaile', 'Shangdongjie');
+insert into clients (id_client, nom, prenom, ville) values
+(11, 'Thomasine', 'Sliney', 'Donja Dubica');
+insert into clients (id_client, nom, prenom, ville) values
+(12, 'Alexandro', 'Benoi', 'Palmital');
+insert into clients (id_client, nom, prenom, ville) values
+(13, 'Loutitia', 'Duester', 'Xiaolukou');
+insert into clients (id_client, nom, prenom, ville) values
+(14, 'Giselle', 'Eagers', 'Villa Consuelo');
+insert into clients (id_client, nom, prenom, ville) values
+(15, 'Cash', 'Tear', 'Galovac');
+insert into clients (id_client, nom, prenom, ville) values
+(16, 'Ulrikaumeko', 'MacNish', 'General Martín Miguel de Güemes');
+insert into clients (id_client, nom, prenom, ville) values
+(17, 'Amandy', 'Sycamore', 'Şirvan');
+insert into clients (id_client, nom, prenom, ville) values
+(18, 'Colline', 'Clampett', 'Tambovka');
+insert into clients (id_client, nom, prenom, ville) values
+(19, 'Christin', 'Brookshaw', 'Wińsko');
+insert into clients (id_client, nom, prenom, ville) values
+(20, 'Sherm', 'Oldershaw', 'Vällingby');
+insert into clients (id_client, nom, prenom, ville) values
+(21, 'Owain', 'James', 'Ipaba');
+insert into clients (id_client, nom, prenom, ville) values
+(22, 'Katy', 'Doe', 'Ipaba');
+insert into clients (id_client, nom, prenom, ville) values
+(23, 'Durand', 'Antoine', 'Toulouse');
+
+-- insertion dans la table fournisseurs
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(1, 'Oyope', 'Philippines');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(2, 'Omba', 'Czech Republic');
+snsert into fournisseurs (id_fournisseur, nom, pays) values
+(3, 'Wordtune', 'China');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(4, 'Zoozzy', 'Indonesia');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(5, 'Yacero', 'Italy');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(6, 'Fliptune', 'Mauritania');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(7, 'Flashset', 'China');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(8, 'Fanoodle', 'United States');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(9, 'Linktype', 'Brazil');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(10, 'Kanoodle', 'China');
+
+
+-- insertion des categories
+insert into categories (id_categorie, libelle) values (1, 'Fruits');
+insert into categories (id_categorie, libelle) values (2, 'Viande');
+insert into categories (id_categorie, libelle) values (3, 'Liquide');
+insert into categories (id_categorie, libelle) values (4, 'Divers');
+
+-- insertion dans la table produits
+insert into produits (id_produit, designation, prix) values
+(1, 'Tart Shells - Sweet, 4', 6.68);
+insert into produits (id_produit, designation, prix) values
+(2, 'Sauce - Balsamic Viniagrette', 90.9);
+insert into produits (id_produit, designation, prix) values
+(3, 'Cheese - Swiss', 15.07);
+insert into produits (id_produit, designation, prix) values
+(4, 'Apple - Fuji', 9.71);
+insert into produits (id_produit, designation, prix) values
+(5, 'Arizona - Green Tea', 17.01);
+insert into produits (id_produit, designation, prix) values
+(6, 'Chicken - Breast, 5 - 7 Oz', 93.74);
+insert into produits (id_produit, designation, prix) values
+(7, 'Maintenance Removal Charge', 60.51);
+insert into produits (id_produit, designation, prix) values
+(8, 'Bagel - Everything Presliced', 9.85);
+insert into produits (id_produit, designation, prix) values
+(9, 'V8 Splash Strawberry Kiwi', 8.68);
+insert into produits (id_produit, designation, prix) values
+(10, 'Stock - Beef, White', 7.41);
+insert into produits (id_produit, designation, prix) values
+(11, 'Water - Tonic', 7.01);
+insert into produits (id_produit, designation, prix) values
+(12, 'Cheese - Roquefort Pappillon', 73.24);
+insert into produits (id_produit, designation, prix) values
+(13, 'Cabbage - Nappa', 18.12);
+insert into produits (id_produit, designation, prix) values
+(14, 'Cheese - Grie Des Champ', 16.42);
+insert into produits (id_produit, designation, prix) values
+(15, 'Flower - Commercial Bronze', 6.37);
+insert into produits (id_produit, designation, prix) values
+(16, 'Cheese - St. Andre', 6.6);
+insert into produits (id_produit, designation, prix) values
+(17, 'Pineapple - Canned, Rings', 9.36);
+insert into produits (id_produit, designation, prix) values
+(18, 'Soup Bowl Clear', 5.07);
+insert into produits (id_produit, designation, prix) values
+(19, 'Honey - Lavender', 7.85);
+insert into produits (id_produit, designation, prix) values
+(20, 'Oil - Shortening,liqud, Fry', 7.76);
+
+
+-- insertion dans la table livraisons
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(1, 1, 3129.54);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(2, 2, 8813.17);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(3, 3, 7822.37);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(4, 4, 6485.22);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(5, 5, 9150.71);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(6, 6, 6126.11);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(7, 7, 3828.05);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(8, 8, 8645.02);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(1, 9, 183.35);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(2, 10, 2820.56);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(3, 11, 373.54);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(4, 12, 5129.16);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(6, 14, 3008.76);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(7, 15, 2974.57);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(8, 16, 6211.6);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(1, 17, 4078.62);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(2, 18, 2005.31);
+insert into livraisons (id_fournisseur, id_produit, prix_achat)
+values (3, 19, 3977.95);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(4, 20, 649.83);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(5, 10, 3771.71);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(6, 2, 3897.04);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(7, 3, 5840.81);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(8, 4, 2727.99);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(1, 6, 8259.33);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(2, 6, 3773.9);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(3, 7, 6753.52);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(4, 8, 1018.27);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(5, 9, 9126.4);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(6, 10, 4279.07);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(8, 12, 9688.73);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(1, 13, 7856.74);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(2, 14, 6654.14);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(3, 15, 7247.92);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(4, 16, 6742.42);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(6, 18, 7510.56);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(7, 19, 7134.61);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(8, 20, 2799.85);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(1, 10, 7686.57);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(2, 20, 79.72);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(3, 8, 4866.53);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(4, 10, 4108.67);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(6, 5, 4233.1);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(7, 10, 2718.85);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(8, 10, 3826.16);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(9, 3, 3652.8);
+insert into livraisons (id_fournisseur, id_produit, prix_achat) values
+(1, 5, 1206.91);
+
+-- insertion dans la table commandes
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (1, '2021-07-21 00:02:33', '0 La Follette Plaza', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (2, '2020-10-20 10:51:21', '36 Grim Alley', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (3, '2020-12-22 19:40:02', '5 Kensington Road', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (4, '2019-08-26 09:43:49', '054 Susan Drive', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (5, '2019-06-11 06:13:26', '25045 Little Fleur Parkway', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (6, '2019-09-25 09:08:22', '7 2nd Place', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (7, '2021-05-09 23:19:55', '711 Mariners Cove Park', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (8, '2019-05-10 03:35:12', '5 Toban Alley', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (9, '2019-05-22 14:59:56', '0 Dawn Pass', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (10, '2020-01-01 18:23:29', '06 Lyons Junction', 19);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (11, '2019-10-11 20:09:21', '38 Clemons Plaza', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (12, '2019-12-02 02:42:50', '6195 Commercial Way', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (13, '2021-04-02 21:50:18', '5 Michigan Alley', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (14, '2020-11-14 16:44:42', '49 Merrick Lane', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (15, '2020-07-03 11:12:55', '77499 North Way', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (16, '2020-03-29 03:58:17', '054 Becker Circle', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (17, '2020-10-01 18:47:22', '6620 Transport Parkway', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (18, '2021-01-16 13:42:40', '916 Tennyson Park', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (19, '2020-10-02 13:57:39', '17828 Anderson Avenue', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (20, '2019-02-28 20:18:22', '9 Sunfield Point', 19);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (21, '2020-12-24 10:11:51', '47 Linden Drive', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (22, '2021-03-29 21:59:52', '532 Independence Drive', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (23, '2020-04-13 15:06:15', '9 East Court', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (24, '2020-10-16 19:51:20', '26064 Sage Drive', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (25, '2019-09-28 19:58:19', '447 Mariners Cove Park', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (26, '2019-07-23 03:26:27', '9641 Maywood Trail', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (27, '2020-03-08 10:03:55', '066 Coolidge Lane', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (28, '2021-01-24 16:39:07', '96 Acker Trail', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (29, '2019-10-12 12:28:05', '124 Trailsway Street', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (30, '2021-03-02 20:06:06', '05843 4th Court', 19);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (31, '2021-03-02 23:41:38', '4184 Ohio Terrace', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (32, '2021-05-21 00:19:42', '16 Moulton Crossing', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (33, '2020-04-22 08:48:04', '68049 Russell Alley', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (34, '2019-05-16 02:12:28', '0103 Stoughton Street', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (35, '2021-06-17 12:45:58', '93700 Kings Avenue', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (36, '2019-08-06 18:09:37', '14 Blackbird Center', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (37, '2019-04-20 17:18:23', '11 Lakeland Lane', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (38, '2020-04-30 14:25:11', '64298 Iowa Pass', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (39, '2020-03-20 10:38:31', '44 Continental Avenue', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (40, '2021-01-09 01:21:00', '44 Sheridan Avenue', 19);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (41, '2019-05-17 12:48:42', '0 Hanover Court', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (42, '2020-04-08 17:52:14', '1 Wayridge Place', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (43, '2020-06-23 06:07:00', '1798 Esker Hill', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (44, '2020-09-14 23:56:44', '57370 Dawn Street', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (45, '2019-11-06 18:54:42', '61 Northview Pass', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (46, '2020-04-29 16:21:36', '064 Bobwhite Plaza', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (47, '2020-12-11 00:33:45', '876 Oriole Point', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (48, '2020-11-26 23:27:01', '6125 Hoepker Junction', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (49, '2020-02-07 04:30:33', '9176 Starling Parkway', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (50, '2019-01-21 12:27:11', '45 Fremont Court', 19);
+
+
+-- insertion dans la table paniers
+insert into paniers (id_commande, id_produit, quantite) values
+(1, 1, 3);
+insert into paniers (id_commande, id_produit, quantite) values
+(1, 2, 17);
+insert into paniers (id_commande, id_produit, quantite) values
+(1, 3, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(2, 4, 5);
+insert into paniers (id_commande, id_produit, quantite) values
+(2, 5, 14);
+insert into paniers (id_commande, id_produit, quantite) values
+(3, 1, 9);
+insert into paniers (id_commande, id_produit, quantite) values
+(3, 2, 1);
+insert into paniers (id_commande, id_produit, quantite) values
+(4, 3, 4);
+insert into paniers (id_commande, id_produit, quantite) values
+(4, 4, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(5, 5, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(1, 8, 5);
+insert into paniers (id_commande, id_produit, quantite) values
+(2, 2, 9);
+insert into paniers (id_commande, id_produit, quantite) values
+(3, 3, 8);
+insert into paniers (id_commande, id_produit, quantite) values
+(4, 14, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(5, 7, 17);
+insert into paniers (id_commande, id_produit, quantite) values
+(6, 6, 13);
+insert into paniers (id_commande, id_produit, quantite) values
+(7, 7, 10);
+insert into paniers (id_commande, id_produit, quantite) values
+(8, 8, 15);
+insert into paniers (id_commande, id_produit, quantite) values
+(9, 9, 18);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 10, 18);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 11, 6);
+insert into paniers (id_commande, id_produit, quantite) values
+(12, 12, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(13, 13, 17);
+insert into paniers (id_commande, id_produit, quantite) values
+(14, 14, 14);
+insert into paniers (id_commande, id_produit, quantite) values
+(15, 15, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(16, 16, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(17, 17, 3);
+insert into paniers (id_commande, id_produit, quantite) values
+(18, 18, 13);
+insert into paniers (id_commande, id_produit, quantite) values
+(19, 19, 3);
+insert into paniers (id_commande, id_produit, quantite) values
+(20, 20, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(21, 1, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(22, 2, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(23, 3, 15);
+insert into paniers (id_commande, id_produit, quantite) values
+(24, 4, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(25, 5, 4);
+insert into paniers (id_commande, id_produit, quantite) values
+(26, 6, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(27, 7, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(28, 8, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(29, 9, 1);
+insert into paniers (id_commande, id_produit, quantite) values
+(30, 10, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(31, 11, 2);
+insert into paniers (id_commande, id_produit, quantite) values
+(32, 12, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(33, 13, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(34, 14, 8);
+insert into paniers (id_commande, id_produit, quantite) values
+(35, 15, 6);
+insert into paniers (id_commande, id_produit, quantite) values
+(36, 16, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(37, 17, 10);
+insert into paniers (id_commande, id_produit, quantite) values
+(38, 18, 10);
+insert into paniers (id_commande, id_produit, quantite) values
+(39, 19, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(40, 20, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(41, 1, 14);
+insert into paniers (id_commande, id_produit, quantite) values
+(42, 2, 15);
+insert into paniers (id_commande, id_produit, quantite) values
+(43, 3, 13);
+insert into paniers (id_commande, id_produit, quantite) values
+(44, 4, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(45, 5, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(46, 6, 14);
+insert into paniers (id_commande, id_produit, quantite) values
+(47, 7, 1);
+insert into paniers (id_commande, id_produit, quantite) values
+(48, 8, 11);
+insert into paniers (id_commande, id_produit, quantite) values
+(49, 9, 11);
+insert into paniers (id_commande, id_produit, quantite) values
+(50, 10, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 1, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 2, 15);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 3, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 4, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 5, 17);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 6, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 7, 11);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 8, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 9, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 10, 11);

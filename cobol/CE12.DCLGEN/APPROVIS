@@ -1,0 +1,26 @@
+      ******************************************************************
+      * DCLGEN TABLE(UFA02.APPRO)                                      *
+      *        LIBRARY(UFA02.CE12.DCLGEN(APPROVIS))                    *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE UFA02.APPRO TABLE
+           ( ID_FOURNISSEUR                 INTEGER NOT NULL,
+             ID_PRODUIT                     INTEGER NOT NULL,
+             STATUT                         CHAR(1) NOT NULL,
+             PRIX_ACHAT                     FLOAT,
+             QUANTITE                       INTEGER
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE UFA02.APPRO                        *
+      ******************************************************************
+       01  DCLAPPRO.
+           10 ID-FOURNISSEUR       PIC S9(9) USAGE COMP.
+           10 ID-PRODUIT           PIC S9(9) USAGE COMP.
+           10 STATUT               PIC X(1).
+           10 PRIX-ACHAT           USAGE COMP-2.
+           10 QUANTITE             PIC S9(9) USAGE COMP.
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 5       *
+      ******************************************************************

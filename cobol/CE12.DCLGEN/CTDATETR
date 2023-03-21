@@ -1,0 +1,22 @@
+      ******************************************************************
+      * DCLGEN TABLE(UFA03.DATETR)                                     *
+      *        LIBRARY(UFA03.CE12.DCLGEN(CTDATETR))                    *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE UFA03.DATETR TABLE
+           ( DATE_TRT                       DATE NOT NULL,
+             STATUT_DATETR                  CHAR(1),
+             LIBELLE                        CHAR(30) NOT NULL
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE UFA03.DATETR                       *
+      ******************************************************************
+       01  DCLDATETR.
+           10 DATE-TRT             PIC X(10).
+           10 STATUT-DATETR        PIC X(1).
+           10 LIBELLE              PIC X(30).
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 3       *
+      ******************************************************************

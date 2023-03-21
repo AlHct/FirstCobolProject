@@ -1,0 +1,5 @@
+ insert into datetr                                                     00010000
+ (DATE_TRT, STATUT_DATETR, LIBELLE)                                     00020000
+ VALUES                                                                 00030000
+ (CURRENT DATE - 7 DAYS, 'A', 'ATT' );                                  00040001
+ select * from datetr                                                   00050000

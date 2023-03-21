@@ -1,0 +1,54 @@
+//UFA06DPJ JOB CLASS=A,MSGCLASS=H,REGION=0M,NOTIFY=&SYSUID
+//*
+//JOBLIB   DD DISP=SHR,DSN=UFA06.CE12.LOAD
+//*
+//*---------------------------------------------------------------
+//* EXECUTION PROGRAMME COBOL D6STOCK
+//* DECLARE-OPEN-FETCH-CLOSE  EMPLOYEE
+//*---------------------------------------------------------------
+//D6STOCK  EXEC PGM=IKJEFT01,DYNAMNBR=20,TIME=05
+//SYSOUT   DD SYSOUT=*,OUTLIM=1000
+//OUD6STOC DD DSN=UFA06.FIC.D6STOCK,DISP=SHR
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN  DD  *
+ DSN SYSTEM(DB2A)
+ RUN PROGRAM(D6STOCK) PLAN(PLANCE12)
+//*
+//*
+//*---------------------------------------------------------------
+//* EXECUTION PROGRAMME COBOL D6REAPRO
+//*---------------------------------------------------------------
+//SEPAR   EXEC PGM=D6REAPRO
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//INSTOCK  DD DSN=UFA06.FIC.D6STOCK,DISP=SHR
+//OUREAPRO DD DSN=UFA06.FIC.AREAPRO,DISP=SHR
+//OUSUFFIS DD DSN=UFA06.FIC.SUFFIS,DISP=SHR
+//*--------------------------------------------------------------
+//*--------------------------------------------------------------
+//*--------------------------------------------------------------
+//* EXECUTION PROGRAMME COBOL D6MAJAPP
+//* DECLARE-OPEN-FETCH-CLOSE  EMPLOYEE
+//*---------------------------------------------------------------
+//EXEC     EXEC PGM=IKJEFT01,DYNAMNBR=20,TIME=05
+//SYSOUT   DD SYSOUT=*,OUTLIM=1000
+//INAREAPR DD DSN=UFA06.FIC.AREAPRO,DISP=SHR
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN  DD  *
+ DSN SYSTEM(DB2A)
+ RUN PROGRAM(D6MAJAPP) PLAN(PLANCE12)
+//*
+//*
+//*---------------------------------------------------------------
+//* D6LIVRAISON
+//*---------------------------------------------------------------
+//D6LIVRAI EXEC PGM=IKJEFT01,DYNAMNBR=20,TIME=05
+//SYSOUT   DD SYSOUT=*,OUTLIM=1000
+//SYSPRINT DD SYSOUT=*
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN  DD  *
+ DSN SYSTEM(DB2A)
+ RUN PROGRAM(D6LIVRAI) PLAN(PLANCE12)
+//

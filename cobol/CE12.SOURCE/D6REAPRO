@@ -1,0 +1,478 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. D6REAPRO.
+
+      *=========================================================*
+      * PROGRAME CALCUL APPRO                                   *
+      * A PARTIR DES DONNES CUMULEES D6STOCK
+      * TRIE LES PROD A REAPROVISIONNER ET CEUX A QUANTITE SUFF
+      * DANS DEUX FICHIERS DIFFERENTS
+      * SQUELETTE DE PROGRAMME COBOL                            *
+      *                                                         *
+      *=========================================================*
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+            SELECT FIN-STOCK ASSIGN TO INSTOCK
+            FILE STATUS IS WS-FS-FIN-STOCK.
+            SELECT FOU-AREAPRO ASSIGN TO OUREAPRO
+            FILE STATUS IS WS-FS-FOU-AREAPRO.
+            SELECT FOU-SUFFIS ASSIGN TO OUSUFFIS
+            FILE STATUS IS WS-FS-FOU-SUFFIS.
+       DATA DIVISION.
+
+       FILE SECTION.
+
+       FD FIN-STOCK
+             RECORDING MODE IS F.
+       01 FS-FIN-STOCK PIC X(80).
+
+       FD FOU-AREAPRO
+             RECORDING MODE IS F.
+       01 FS-FOU-AREAPRO PIC X(80).
+
+       FD FOU-SUFFIS
+             RECORDING MODE IS F.
+       01 FS-FOU-SUFFIS PIC X(80).
+
+       WORKING-STORAGE SECTION.
+
+       01 WS-FIN-STOCK.
+          05 WS-FIN-ORIGINE         PIC     X.
+          05 WS-ID-PRODUIT          PIC S9(5).
+          05 WS-STOCK               PIC S9(5).
+          05 WS-QUOTITE             PIC S9(5).
+          05 WS-QUANTITE-ALERTE     PIC S9(5).
+          05 WS-QUANTITE-COMMANDEE  PIC S9(5).
+          05 WS-QUANTITE-APPRO      PIC S9(5).
+          05 FILLER        PIC X(49).
+       01 WF-FOU-STOCK.
+          05 WF-FOU-ORIGINE         PIC     X.
+          05 WF-ID-PRODUIT          PIC S9(5).
+          05 WF-STOCK               PIC S9(5).
+          05 WF-QUOTITE             PIC S9(5).
+          05 WF-QUANTITE-ALERTE     PIC S9(5).
+          05 WF-QUANTITE-COMMANDEE  PIC S9(5).
+          05 WF-QUANTITE-APPRO      PIC S9(5).
+          05 FILLER                 PIC X(49).
+
+       01     WS-FOU-AREAPRO.
+         05 FILLER        PIC X(80).
+
+       01     WS-FOU-SUFFIS.
+         05 FILLER        PIC X(80).
+
+      *STATUS
+       01 WS-FS-FIN-STOCK PIC XX.
+       01 WS-FS-FOU-AREAPRO PIC XX.
+       01 WS-FS-FOU-SUFFIS PIC XX.
+
+      *COMPTEUR LIGNES TABLES ET FICHIER MAJAP
+       01  AREAPRO-CPTENR       PIC 9(9) VALUE ZERO.
+       01  SUFFIS-CPTENR        PIC 9(9) VALUE ZERO.
+       01 WS-CTR-FIN-STOCK   PIC S999 COMP-3 VALUE ZERO.
+       01 WS-CTR-FOU-AREAPRO PIC S9(5) COMP-3 VALUE ZERO.
+       01 WS-CTR-FOU-SUFFIS PIC S9(5) COMP-3 VALUE ZERO.
+       01 WS-CTE-FIN-STOCK PIC ZZ9.
+       01 WS-CTE-FOU-AREAPRO PIC -(3)B--9.
+       01 WS-CTE-FOU-SUFFIS  PIC -(3)B--9.
+
+      *SQLCODE
+       01     W-SQLCODE          PIC -(3)9 VALUE ZERO.
+
+      *CODE PROGRAMME
+       01     W-PROGE            PIC X(8) VALUE 'D6REAPRO'.
+
+      * DB2 : SQLCA
+      *    EXEC SQL
+      *         INCLUDE SQLCA
+      *    END-EXEC.
+
+      * TABLES DB2
+      *    EXEC SQL
+      *         INCLUDE PRODUITS
+      *    END-EXEC.
+
+      *    EXEC SQL
+      *         INCLUDE APPROVIS
+      *    END-EXEC.
+
+      *    EXEC SQL
+      *         INCLUDE PANIERSS
+      *    END-EXEC.
+
+      *    EXEC SQL
+      *         INCLUDE COMMANDE
+      *    END-EXEC.
+
+      * DECLARE CURSEUR TABLES
+      *    EXEC SQL DECLARE MAJAP-CURSEUR CURSOR FOR
+      *      SELECT
+      *             "P", ID_PRODUIT, VALUE (MAJAP,0),
+      *               VALUE (QUOTITE,0), VALUE (QUANTITE_ALERTE,0)
+      *            FROM  PRODUITS
+      *      UNION ALL
+      *      SELECT
+      *             "A", ID_PRODUIT, VALUE (QUANTITE,0), 0, 0
+      *            FROM  APPRO
+      *            WHERE STATUT = "C"
+      *      UNION ALL
+      *      SELECT
+      *             "C", ID_PRODUIT, VALUE (QUANTITE,0), 0, 0
+      *            FROM  PANIERS P, COMMANDES C
+      *            WHERE C.ID_COMMANDE = P.ID_COMMANDE
+      *               AND STATUT = "C"
+      *      ORDER BY 2
+      *    END-EXEC.
+
+       01 WS-STOCK-FLAG   PIC XXX VALUE SPACE.
+      *01 WS-FIN-ORIGINE  PIC X.
+      *01 WS-ID-PRODUIT   PIC S9(9) COMP.
+      *01 WS-ID-PRODUIT-C PIC S9(9) COMP.
+      *01 WS-QUANTITE     PIC S9(9) COMP.
+
+      ***********************************************************
+
+       PROCEDURE DIVISION.
+
+       0000-DEBUT-DEB.
+
+      * OUVRIR UN FICHIER
+           PERFORM 6100-STOCK-OUV-DEB
+           THRU    6100-STOCK-OUV-FIN.
+
+           PERFORM 6200-AREAPRO-OUV-DEB
+           THRU    6200-AREAPRO-OUV-FIN.
+
+           PERFORM 6300-SUFFIS-OUV-DEB
+           THRU    6300-SUFFIS-OUV-FIN.
+
+           DISPLAY 'DEBUT DU PROGRAMME ' W-PROGE.
+      *COMPOSANTE FECTH
+      *    PERFORM 6000-OPEN-STOCK-DEB
+      *    THRU    6000-OPEN-STOCK-FIN.
+
+      * LIRE UN FICHIER
+           PERFORM 6110-STOCK-LEC-DEB
+           THRU    6110-STOCK-LEC-FIN.
+
+      *    PERFORM 6020-FETCH-MAJAP-DEB
+      *    THRU    6020-FETCH-MAJAP-FIN.
+
+           MOVE SPACE TO WF-FOU-STOCK.
+
+           INITIALIZE WF-FOU-STOCK.
+
+      *    IF SQLCODE = ZERO
+           IF WS-FIN-STOCK = ZERO
+              DISPLAY '********************************'
+              DISPLAY 'ID-PRODUIT : ' WS-ID-PRODUIT   '/'
+              DISPLAY '********************************'
+           END-IF.
+      *    END-IF.
+
+           PERFORM 1000-CALCUL-DEB
+           THRU    1000-CALCUL-FIN
+                  UNTIL WS-STOCK-FLAG = 'FIN'.
+
+      *    PERFORM 6010-CLOSE-MAJAP-DEB
+      *    THRU    6010-CLOSE-MAJAP-FIN.
+
+      * FERMETURE FICHIERS
+           PERFORM 6120-STOCK-CLO-DEB
+           THRU    6120-STOCK-CLO-FIN.
+
+           PERFORM 6220-AREAPRO-CLO-DEB
+           THRU    6220-AREAPRO-CLO-FIN.
+
+           PERFORM 6320-SUFFIS-CLO-DEB
+           THRU    6320-SUFFIS-CLO-FIN.
+
+      * AFFICHAGE DES STAT
+           PERFORM 8999-STAT-DEB
+           THRU    8999-STAT-FIN.
+
+           PERFORM 9998-FIN-NORMALE-DEB
+           THRU    9998-FIN-NORMALE-FIN.
+
+       0000-DEBUT-FIN. EXIT.
+
+       1000-CALCUL-DEB.
+           IF WS-QUANTITE-ALERTE > (WS-STOCK - WS-QUANTITE-COMMANDEE)
+                 PERFORM 2000-AREAPRO-DEB
+                 THRU    2000-AREAPRO-FIN
+           ELSE  PERFORM 2010-SUFFIS-DEB
+                 THRU    2010-SUFFIS-FIN
+           END-IF.
+           PERFORM 6110-STOCK-LEC-DEB
+           THRU    6110-STOCK-LEC-FIN.
+
+      *    PERFORM 6020-FETCH-MAJAP-DEB
+      *    THRU    6020-FETCH-MAJAP-FIN.
+       1000-CALCUL-FIN.
+           EXIT.
+
+       2000-AREAPRO-DEB.
+           PERFORM 7000-WF-DEB
+             THRU  7000-WF-FIN.
+           PERFORM 6210-AREAPRO-ECR-DEB
+           THRU    6210-AREAPRO-ECR-DEB.
+           DISPLAY 'ID-PRODUIT ' WF-ID-PRODUIT.
+           DISPLAY 'WF-ID-PRODUIT : ' WF-ID-PRODUIT.
+           DISPLAY 'WF-STOCK      : ' WF-STOCK .
+           DISPLAY 'WF-QUOTITE    : ' WF-QUOTITE .
+           DISPLAY 'WF-QUANTITE-ALERTE : ' WF-QUANTITE-ALERTE.
+           DISPLAY 'WF-QUANTITE-COMMANDEE : '
+                    WF-QUANTITE-COMMANDEE .
+           DISPLAY 'WF-QUANTITE-APPRO : '
+                    WF-QUANTITE-APPRO.
+
+           INITIALIZE WF-FOU-STOCK.
+
+           IF WS-STOCK-FLAG = ZERO
+              DISPLAY '********************************'
+              DISPLAY 'ID-PRODUIT : ' WS-ID-PRODUIT   '/'
+              DISPLAY '********************************'
+           END-IF.
+
+       2000-AREAPRO-FIN.
+           EXIT.
+
+       2010-SUFFIS-DEB.
+
+           PERFORM 7000-WF-DEB
+             THRU  7000-WF-FIN.
+           PERFORM 6310-SUFFIS-ECR-DEB
+           THRU    6310-SUFFIS-ECR-FIN.
+
+           DISPLAY 'ID-PRODUIT ' WF-ID-PRODUIT
+           DISPLAY 'WF-ID-PRODUIT : ' WF-ID-PRODUIT.
+           DISPLAY 'WF-STOCK      : ' WF-STOCK .
+           DISPLAY 'WF-QUOTITE    : ' WF-QUOTITE .
+           DISPLAY 'WF-QUANTITE-ALERTE : ' WF-QUANTITE-ALERTE.
+           DISPLAY 'WF-QUANTITE-COMMANDEE : '
+                    WF-QUANTITE-COMMANDEE .
+           DISPLAY 'WF-QUANTITE-APPRO : '
+                    WF-QUANTITE-APPRO.
+
+           INITIALIZE WF-FOU-STOCK.
+
+           IF WS-STOCK-FLAG = ZERO
+              DISPLAY '********************************'
+              DISPLAY 'ID-PRODUIT : ' WS-ID-PRODUIT   '/'
+              DISPLAY '********************************'
+           END-IF.
+
+       2010-SUFFIS-FIN.
+           EXIT.
+
+      *6000-OPEN-MAJAP-DEB.
+      *    EXEC SQL
+      *         OPEN MAJAP-CURSEUR
+      *    END-EXEC .
+      *
+      *6000-OPEN-MAJAP-FIN.
+      *    EXIT.
+      *
+      *6010-CLOSE-MAJAP-DEB.
+      *    EXEC SQL
+      *         CLOSE MAJAP-CURSEUR
+      *    END-EXEC .
+      *
+      *6010-CLOSE-MAJAP-FIN.
+      *    EXIT.
+      *
+      *6020-FETCH-MAJAP-DEB.
+      *    EXEC SQL
+      *         FETCH MAJAP-CURSEUR
+      *          INTO
+      *              :WS-FIN-ORIGINE,
+      *              :WS-ID-PRODUIT,
+      *              :WS-QUANTITE,
+      *              :QUOTITE,
+      *              :QUANTITE-ALERTE
+      *    END-EXEC.
+      *
+      *    EVALUATE SQLCODE
+      *       WHEN ZERO ADD 1 TO MAJAP-CPTENR
+      *       WHEN 100 DISPLAY 'FIN'
+      *       WHEN OTHER MOVE SQLCODE TO W-SQLCODE
+      *                  DISPLAY 'SQLCODE : ' SQLCODE
+      *            PERFORM 9999-ERREUR-PROGRAMME-DEB
+      *            THRU    9999-ERREUR-PROGRAMME-FIN
+      *    END-EVALUATE.
+      *
+      *6020-FETCH-MAJAP-FIN.
+      *    EXIT.
+
+       6100-STOCK-OUV-DEB.
+           OPEN INPUT FIN-STOCK.
+           IF WS-FS-FIN-STOCK NOT = ZERO
+              DISPLAY 'ERREUR OPEN STOCK' WS-FS-FIN-STOCK
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+       6100-STOCK-OUV-FIN. EXIT.
+
+       6110-STOCK-LEC-DEB.
+           READ FIN-STOCK
+               INTO WS-FIN-STOCK
+              AT END MOVE 'FIN' TO WS-STOCK-FLAG.
+           IF  WS-FS-FIN-STOCK NOT = '10' AND NOT = ZERO
+              DISPLAY 'ERREUR READ STOCK ' WS-FS-FIN-STOCK
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+           IF WS-FS-FIN-STOCK = '10'
+              MOVE 'FIN' TO WS-STOCK-FLAG
+              MOVE HIGH-VALUE TO WS-FIN-STOCK
+           END-IF.
+           IF WS-FS-FIN-STOCK = ZERO
+              ADD 1 TO WS-CTR-FIN-STOCK
+           END-IF.
+       6110-STOCK-LEC-FIN. EXIT.
+
+       6120-STOCK-CLO-DEB.
+           CLOSE FIN-STOCK.
+           IF WS-FS-FIN-STOCK NOT = ZERO
+             DISPLAY 'ERREUR CLOSE STOCK' WS-FS-FIN-STOCK
+             PERFORM 9999-ERREUR-PROGRAMME-DEB
+             THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+       6120-STOCK-CLO-FIN. EXIT.
+
+       6200-AREAPRO-OUV-DEB.
+           OPEN OUTPUT FOU-AREAPRO.
+           IF WS-FS-FOU-AREAPRO NOT = ZERO
+              DISPLAY 'ERREUR OPEN OUTPUT AREAPRO ' WS-FS-FOU-AREAPRO
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+
+       6200-AREAPRO-OUV-FIN. EXIT.
+
+       6210-AREAPRO-ECR-DEB.
+           WRITE FS-FOU-AREAPRO
+                 FROM WF-FOU-STOCK.
+           IF WS-FS-FOU-AREAPRO NOT = ZERO
+              DISPLAY 'ERREUR ECRITURE AREAPRO ' WS-FS-FOU-AREAPRO
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+           IF WS-FS-FOU-AREAPRO = ZERO
+              ADD 1 TO WS-CTR-FOU-AREAPRO
+           END-IF.
+
+       6210-AREAPRO-ECR-FIN. EXIT.
+
+       6220-AREAPRO-CLO-DEB.
+           CLOSE FOU-AREAPRO
+           IF WS-FS-FOU-AREAPRO NOT = ZERO
+              DISPLAY 'ERREUR CLOSE AREAPRO ' WS-FS-FOU-AREAPRO
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+
+       6220-AREAPRO-CLO-FIN. EXIT.
+
+       6300-SUFFIS-OUV-DEB.
+           OPEN OUTPUT FOU-SUFFIS.
+           IF WS-FS-FOU-SUFFIS NOT = ZERO
+              DISPLAY 'ERREUR OPEN OUTPUT SUFFIS ' WS-FS-FOU-SUFFIS
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+
+       6300-SUFFIS-OUV-FIN. EXIT.
+
+       6310-SUFFIS-ECR-DEB.
+           WRITE FS-FOU-SUFFIS
+                 FROM WF-FOU-STOCK.
+           IF WS-FS-FOU-SUFFIS NOT = ZERO
+              DISPLAY 'ERREUR ECRITURE SUFFIS ' WS-FS-FOU-SUFFIS
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+           IF WS-FS-FOU-SUFFIS = ZERO
+              ADD 1 TO WS-CTR-FOU-SUFFIS
+           END-IF.
+
+       6310-SUFFIS-ECR-FIN. EXIT.
+
+       6320-SUFFIS-CLO-DEB.
+           CLOSE FOU-SUFFIS
+           IF WS-FS-FOU-SUFFIS NOT = ZERO
+              DISPLAY 'ERREUR CLOSE SUFFIS ' WS-FS-FOU-SUFFIS
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+
+       6320-SUFFIS-CLO-FIN. EXIT.
+
+       7000-WF-DEB.
+           MOVE WS-FIN-ORIGINE  TO WF-FOU-ORIGINE .
+           MOVE WS-ID-PRODUIT TO WF-ID-PRODUIT.
+           MOVE WS-QUANTITE-COMMANDEE TO WF-QUANTITE-COMMANDEE.
+           MOVE WS-QUANTITE-APPRO TO WF-QUANTITE-APPRO.
+           MOVE WS-QUOTITE TO WF-QUOTITE.
+           MOVE WS-QUANTITE-ALERTE TO WF-QUANTITE-ALERTE.
+           MOVE WS-STOCK TO WF-STOCK.
+      *    IF WS-FIN-ORIGINE = "C"
+      *       ADD WS-QUANTITE TO WF-QUANTITE-COMMANDEE
+      *    END-IF.
+      *    IF WS-FIN-ORIGINE = "A"
+      *       ADD WS-QUANTITE TO WF-QUANTITE-APPRO
+      *    END-IF.
+      *    IF WS-FIN-ORIGINE = "P"
+      *       MOVE WS-QUANTITE TO WF-MAJAP
+      *       MOVE QUOTITE TO WF-QUOTITE
+      *       MOVE QUANTITE-ALERTE TO WF-QUANTITE-ALERTE
+      *    END-IF.
+      *
+       7000-WF-FIN. EXIT.
+
+       8999-STAT-DEB.
+           DISPLAY ' '.
+           DISPLAY '*********************************'.
+           DISPLAY '*STATISTIQUES DU PROGRAMME ' W-PROGE.
+           DISPLAY '*********************************'.
+           DISPLAY '                                 '.
+           MOVE WS-CTR-FIN-STOCK TO WS-CTE-FIN-STOCK.
+           MOVE WS-CTR-FOU-AREAPRO TO WS-CTE-FOU-AREAPRO.
+           MOVE WS-CTR-FOU-SUFFIS TO WS-CTE-FOU-SUFFIS.
+           DISPLAY 'ENREGISTREMENTS LUS STOCK : ' WS-CTE-FIN-STOCK      RO
+           DISPLAY 'ENREGISTREMENTS ECRITS AREP: ' WS-CTE-FOU-AREAPRO.
+           DISPLAY 'ENREGISTREMENTS ECRITS SUFF : ' WS-CTE-FOU-SUFFIS.
+           DISPLAY ' '.
+       8999-STAT-FIN. EXIT.
+
+       9998-FIN-NORMALE-DEB.
+           DISPLAY '*********************************'.
+           DISPLAY '*FIN NORMALE DU PROGRAMME ' W-PROGE.
+           DISPLAY '*********************************'.
+           DISPLAY ' '.
+           GOBACK.
+
+       9998-FIN-NORMALE-FIN. EXIT.
+
+       9999-ERREUR-PROGRAMME-DEB.
+           DISPLAY '*********************************'.
+           DISPLAY '*FIN ANORMALE DU PROGRAMME ' W-PROGE.
+           DISPLAY '*UNE ANOMALIE A ETE DETECTEE*'.
+           DISPLAY '*********************************'.
+           DISPLAY 'WS-FS-FIN-STOCK   :  ' WS-FS-FIN-STOCK.
+           DISPLAY 'WS-FS-FOU-AREAPRO :  ' WS-FS-FOU-AREAPRO.
+           DISPLAY 'WS-FS-FOU-SUFFIS :  ' WS-FS-FOU-SUFFIS.
+           MOVE WS-CTR-FIN-STOCK TO WS-CTE-FIN-STOCK.
+           MOVE WS-CTR-FOU-AREAPRO TO WS-CTE-FOU-AREAPRO.
+           MOVE WS-CTR-FOU-SUFFIS TO WS-CTE-FOU-SUFFIS.
+           DISPLAY 'ENREGISTREMENTS LUS STOCK ' WS-CTE-FIN-STOCK        O
+           DISPLAY 'ENREGISTREMENTS ECRITS AR ' WS-CTE-FOU-AREAPRO.
+           DISPLAY 'ENREGISTREMENTS ECRITS SUFF ' WS-CTE-FOU-SUFFIS.
+      *     MOVE SQLCODE TO W-SQLCODE.
+      *     DISPLAY W-SQLCODE.
+           GOBACK.
+
+       9999-ERREUR-PROGRAMME-FIN. EXIT.
+

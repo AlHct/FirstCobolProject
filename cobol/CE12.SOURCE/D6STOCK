@@ -1,0 +1,251 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. D6STOCK.
+
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+            SELECT FOU-D6STOCK ASSIGN TO OUD6STOC
+            FILE STATUS IS WS-FS-FOU-D6STOCK.
+
+       DATA DIVISION.
+       FILE SECTION.
+       FD FOU-D6STOCK
+            RECORDING MODE IS F.
+       01  FS-OU-D6STOCK   PIC X(80).
+
+      ************************************************************
+
+       WORKING-STORAGE SECTION.
+
+       01  NB-FETCH              PIC 9(9) VALUE ZERO.
+       01  NB-FETCH-ED           PIC Z(9)9.
+
+       01  W-SQLCODE             PIC -(3)9 VALUE ZERO.
+
+       01  W-PROGE               PIC X(8)  VALUE 'D6STOCK'.
+
+       01 WS-FS-FOU-D6STOCK      PIC XX.
+
+           EXEC SQL
+               INCLUDE SQLCA
+           END-EXEC.
+
+           EXEC SQL
+               INCLUDE PRODUITS
+           END-EXEC.
+
+           EXEC SQL
+               INCLUDE APPROVIS
+           END-EXEC.
+
+           EXEC SQL
+               INCLUDE PANIERSS
+           END-EXEC.
+
+           EXEC SQL
+               INCLUDE COMMANDE
+           END-EXEC.
+
+           EXEC SQL  DECLARE STOCK-CURSEUR CURSOR FOR
+             SELECT "P", ID_PRODUIT, VALUE(STOCK,0),
+                VALUE(QUOTITE,0), VALUE(QUANTITE_ALERTE,0)
+             FROM PRODUITS
+             UNION ALL
+             SELECT
+                "A", ID_PRODUIT, VALUE(QUANTITE,0), 0, 0
+             FROM APPRO
+             WHERE STATUT = "C"
+             UNION ALL
+             SELECT
+                "C", ID_PRODUIT, VALUE(QUANTITE,0), 0, 0
+             FROM PANIERS P , COMMANDES C
+             WHERE C.ID_COMMANDE = P.ID_COMMANDE
+              AND STATUT = "C"
+             ORDER BY 2
+
+           END-EXEC.
+
+       01 WS-ORIGINE             PIC X.
+       01 WS-ID-PRODUIT          PIC S9(9) COMP.
+       01 WS-QUANTITE            PIC S9(9) COMP.
+       01 WF00.
+         05 WF-ORIGINE           PIC X.
+         05 WF-ID-PRODUIT        PIC S9(5).
+         05 WF-STOCK             PIC S9(5).
+         05 WF-QUOTITE           PIC S9(5).
+         05 WF-QUANTITE-ALERTE   PIC S9(5).
+         05 WF-QUANTITE-COMMANDE PIC S9(5).
+         05 WF-QUANTITE-APPRO    PIC S9(5).
+         05 FILLER               PIC X(49).
+
+       01 WS-ID-PRODUIT-C        PIC S9(9) COMP.
+       01 WS-CTR-FOU-D6STOCK     PIC S9(5) COMP-3 VALUE ZERO.
+       01 WS-CTE-FOU-D6STOCK     PIC -(3)B--9.
+
+ *****************************************************
+       PROCEDURE DIVISION.
+
+       0000-DEBUT-DEB.
+            DISPLAY ' DEBUT DU PROGRAMME : ' W-PROGE.
+            MOVE SPACE TO WF00.
+            INITIALIZE WF00.
+            PERFORM 6300-D6STOCK-OUV-DEB
+               THRU 6300-D6STOCK-OUV-FIN.
+            PERFORM 6000-OPEN-DEB
+               THRU 6000-OPEN-FIN.
+            PERFORM 6100-FETCH-DEB
+               THRU 6100-FETCH-FIN.
+            IF SQLCODE = ZERO
+               MOVE WS-ID-PRODUIT TO WS-ID-PRODUIT-C
+            END-IF.
+            PERFORM 1000-STOCK-DEB
+               THRU 1000-STOCK-FIN
+                    UNTIL SQLCODE NOT = ZERO.
+            PERFORM 6200-CLOSE-DEB
+               THRU 6200-CLOSE-FIN.
+            PERFORM 6400-D6STOCK-CLO-DEB
+               THRU 6400-D6STOCK-CLO-FIN.
+            PERFORM 9998-FIN-NORMALE-DEB
+               THRU 9998-FIN-NORMALE-FIN.
+       0000-DEBUT-FIN.
+            EXIT.
+
+       1000-STOCK-DEB.
+
+            IF WS-ID-PRODUIT = WS-ID-PRODUIT-C
+                 PERFORM 2000-IDENTIQUE-DEB
+                    THRU 2000-IDENTIQUE-FIN
+            ELSE PERFORM 2010-DIFFERENT-DEB
+                    THRU 2010-DIFFERENT-FIN
+            END-IF.
+            PERFORM 6100-FETCH-DEB
+               THRU 6100-FETCH-FIN.
+
+
+       1000-STOCK-FIN. EXIT.
+
+       2000-IDENTIQUE-DEB.
+
+            PERFORM 7000-CALCUL-DEB
+               THRU 7000-CALCUL-FIN.
+
+       2000-IDENTIQUE-FIN. EXIT.
+
+       2010-DIFFERENT-DEB.
+
+             PERFORM 6500-D6STOCK-ECR-DEB
+                THRU 6500-D6STOCK-ECR-FIN.
+            MOVE SPACE TO WF00.
+            INITIALIZE WF00.
+            MOVE WS-ID-PRODUIT TO WS-ID-PRODUIT-C.
+            PERFORM 7000-CALCUL-DEB
+               THRU 7000-CALCUL-FIN.
+
+       2010-DIFFERENT-FIN. EXIT.
+
+
+       6000-OPEN-DEB.
+           EXEC SQL
+               OPEN STOCK-CURSEUR
+           END-EXEC.
+       6000-OPEN-FIN.
+           EXIT.
+
+       6100-FETCH-DEB.
+           EXEC SQL
+               FETCH STOCK-CURSEUR
+               INTO
+                   :WS-ORIGINE,
+                   :WS-ID-PRODUIT,
+                   :WS-QUANTITE,
+                   :QUOTITE,
+                   :QUANTITE-ALERTE
+           END-EXEC.
+
+           EVALUATE SQLCODE
+               WHEN ZERO ADD 1 TO NB-FETCH
+               WHEN 100 DISPLAY ' FIN '
+               WHEN OTHER MOVE SQLCODE TO W-SQLCODE
+                          DISPLAY "SQLCODE : " W-SQLCODE
+                    PERFORM 9999-ERREUR-DEB
+                       THRU 9999-ERREUR-FIN
+           END-EVALUATE.
+       6100-FETCH-FIN. EXIT.
+
+       6200-CLOSE-DEB.
+           EXEC SQL
+               CLOSE STOCK-CURSEUR
+           END-EXEC.
+       6200-CLOSE-FIN.
+           EXIT.
+
+       6300-D6STOCK-OUV-DEB.
+           OPEN OUTPUT FOU-D6STOCK.
+           IF WS-FS-FOU-D6STOCK NOT = ZERO
+              DISPLAY "ERREUR OPEN OUTPUT D6STOCK " WS-FS-FOU-D6STOCK
+              PERFORM 9999-ERREUR-DEB
+              PERFORM 9999-ERREUR-FIN
+              END-IF.
+       6300-D6STOCK-OUV-FIN. EXIT.
+
+       6400-D6STOCK-CLO-DEB.
+           CLOSE FOU-D6STOCK.
+           IF WS-FS-FOU-D6STOCK NOT = ZERO
+              DISPLAY "ERREUR CLOSE D6STOCK " WS-FS-FOU-D6STOCK
+              PERFORM 9999-ERREUR-DEB
+              PERFORM 9999-ERREUR-FIN
+              END-IF.
+       6400-D6STOCK-CLO-FIN. EXIT.
+
+       6500-D6STOCK-ECR-DEB.
+           WRITE FS-OU-D6STOCK
+             FROM WF00.
+           IF WS-FS-FOU-D6STOCK NOT = ZERO
+              DISPLAY "ERREUR ECRITURE D6STOCK " WS-FS-FOU-D6STOCK
+              PERFORM 9999-ERREUR-DEB
+              PERFORM 9999-ERREUR-FIN
+           END-IF.
+           IF WS-FS-FOU-D6STOCK = ZERO
+              ADD 1 TO WS-CTR-FOU-D6STOCK.
+       6500-D6STOCK-ECR-FIN. EXIT.
+
+       7000-CALCUL-DEB.
+
+            MOVE WS-ORIGINE TO WF-ORIGINE.
+            MOVE WS-ID-PRODUIT-C TO WF-ID-PRODUIT.
+            IF WS-ORIGINE = "C"
+               ADD WS-QUANTITE TO WF-QUANTITE-COMMANDE
+            END-IF.
+            IF WS-ORIGINE = "A"
+               ADD WS-QUANTITE TO WF-QUANTITE-APPRO
+            END-IF.
+            IF WS-ORIGINE = "P"
+               MOVE WS-QUANTITE TO WF-STOCK
+               MOVE QUOTITE TO WF-QUOTITE
+               MOVE QUANTITE-ALERTE TO WF-QUANTITE-ALERTE
+            END-IF.
+
+       7000-CALCUL-FIN. EXIT.
+
+
+       9998-FIN-NORMALE-DEB.
+            MOVE NB-FETCH TO NB-FETCH-ED.
+            MOVE WS-CTR-FOU-D6STOCK TO WS-CTE-FOU-D6STOCK.
+            DISPLAY '*********************************'.
+            DISPLAY '* FIN NORMALE DU PROGRAMME ' W-PROGE.
+            DISPLAY '* NB FETCHS :   ' NB-FETCH-ED  .
+            DISPLAY ' ENREGISTREMENTS ECRITS : '  WS-CTE-FOU-D6STOCK.
+            DISPLAY '*********************************'.
+            GOBACK.
+       9998-FIN-NORMALE-FIN.
+            EXIT.
+
+       9999-ERREUR-DEB.
+            DISPLAY '*********************************'.
+            DISPLAY '* FIN ANORMALE DU PROGRAMME * ' W-PROGE.
+            DISPLAY '* SQLCODE :  ' SQLCODE.
+            DISPLAY '*********************************'.
+            GOBACK.
+       9999-ERREUR-FIN.
+            EXIT.
+

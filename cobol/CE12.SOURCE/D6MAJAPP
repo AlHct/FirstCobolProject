@@ -1,0 +1,278 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. D6MAJAPP.
+
+      *=========================================================*
+      * CE PROGRAMME:                                           *
+      * -CALCULE LA QUANTITE DE PRODUIT A REAPPROVISIONNER POUR *
+      * CHAQUE ID-PRODUIT PRESENT DANS LE FICHIER REPRO         *
+      *                                                         *
+      * -MET A JOUR LES TABLES APPRO ET PRODUITS AVEC LES       *
+      * NOUVELLES QUANTITES                                     *
+      *=========================================================*
+
+      *=========================================================*
+      *                                                         *
+      * SQUELETTE DE PROGRAMME COBOL                            *
+      *                                                         *
+      *=========================================================*
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+            SELECT FIN-AREAPRO ASSIGN TO INAREAPR
+            FILE STATUS IS WS-FS-FIN-AREAPRO.
+       DATA DIVISION.
+
+       FILE SECTION.
+
+       FD FIN-AREAPRO
+             RECORDING MODE IS F.
+       01 FS-FIN-AREAPRO PIC X(80).
+
+       WORKING-STORAGE SECTION.
+
+       01     WS-FIN-AREAPRO.
+         05 WS-ORIGINE             PIC X.
+         05 WS-ID-PRODUIT          PIC S9(5).
+         05 WS-STOCK               PIC S9(5).
+         05 WS-QUOTITE             PIC S9(5).
+         05 WS-QUANTITE-ALERTE     PIC S9(5).
+         05 WS-QUANTITE-COMMANDEE  PIC S9(5).
+         05 WS-QUANTITE-APPRO      PIC S9(5).
+         05 FILLER                 PIC X(49).
+       01    WS-ORIGINE-C          PIC X.
+       01    WS-ID-PRODUIT-C       PIC S9(9) COMP.
+       01    WS-STOCK-C            PIC S9(9) COMP.
+       01    WS-QUOTITE-C          PIC S9(9) COMP.
+       01    WS-QUANTITE-ALERTE-C  PIC S9(9) COMP.
+       01    WS-QUANTITE-COMMANDEE-C PIC S9(9) COMP.
+       01    WS-QUANTITE-APPRO-C   PIC S9(9) COMP.
+
+      *STATUS
+       01 WS-FS-FIN-AREAPRO PIC XX.
+
+      *COMPTEUR LIGNES TABLES ET FICHIER MAJAP
+       01  MAJAP-CPTENR        PIC 9(9) VALUE ZERO.
+       01 WS-CTR-FIN-AREAPRO PIC S999 COMP-3 VALUE 0.
+       01 WS-CTE-FIN-AREAPRO PIC ZZ9.
+
+      *SQLCODE
+       01     W-SQLCODE          PIC -(3)9 VALUE ZERO.
+
+      *CODE PROGRAMME
+       01     W-PROGE            PIC X(8) VALUE 'D5MAJAPP'.
+
+      * DB2 : SQLCA
+           EXEC SQL
+                INCLUDE SQLCA
+           END-EXEC.
+
+      * TABLES DB2
+           EXEC SQL
+                INCLUDE PRODUITS
+           END-EXEC.
+
+           EXEC SQL
+                INCLUDE APPROVIS
+           END-EXEC.
+
+           EXEC SQL
+                INCLUDE CTCDEFOU
+           END-EXEC.
+
+           EXEC SQL
+                INCLUDE CTDATETR
+           END-EXEC.
+
+       01 WS-AREAPRO-FLAG    PIC XXX VALUE SPACE.
+       01 WS-QUANTITE-REAPRO     PIC S9(9) COMP.
+
+      ***********************************************************
+
+       PROCEDURE DIVISION.
+
+       0000-DEBUT-DEB.
+
+      * OUVRIR UN FICHIER
+           PERFORM 6100-AREAPRO-OUV-DEB
+           THRU    6100-AREAPRO-OUV-FIN.
+
+           DISPLAY 'DEBUT DU PROGRAMME ' W-PROGE.
+
+      * LIRE UN FICHIER
+           PERFORM 6110-AREAPRO-LEC-DEB
+           THRU    6110-AREAPRO-LEC-FIN.
+           MOVE WS-ORIGINE TO WS-ORIGINE-C.
+           MOVE WS-ID-PRODUIT TO WS-ID-PRODUIT-C.
+           MOVE WS-STOCK TO WS-STOCK-C.
+           MOVE WS-QUOTITE TO WS-QUOTITE-C.
+           MOVE WS-QUANTITE-ALERTE TO WS-QUANTITE-ALERTE-C.
+           MOVE WS-QUANTITE-COMMANDEE TO WS-QUANTITE-COMMANDEE-C.
+           MOVE WS-QUANTITE-APPRO TO WS-QUANTITE-APPRO-C.
+
+           PERFORM 1000-CALCUL-DEB
+           THRU    1000-CALCUL-FIN
+           UNTIL   WS-AREAPRO-FLAG = 'FIN'.
+
+      * FERMETURE FICHIERS
+           PERFORM 6120-AREAPRO-CLO-DEB
+           THRU    6120-AREAPRO-CLO-FIN.
+
+      * AFFICHAGE DES STAT
+           PERFORM 8999-STAT-DEB
+           THRU    8999-STAT-FIN.
+
+           PERFORM 9998-FIN-NORMALE-DEB
+           THRU    9998-FIN-NORMALE-FIN.
+
+       0000-DEBUT-FIN. EXIT.
+
+       1000-CALCUL-DEB.
+
+           COMPUTE WS-QUANTITE-REAPRO = WS-QUANTITE-ALERTE -
+                     WS-STOCK + WS-QUANTITE-COMMANDEE.
+
+           IF WS-QUANTITE-REAPRO > WS-QUANTITE-APPRO
+                 PERFORM 2000-RESTOCK-DEB
+                 THRU    2000-RESTOCK-FIN
+           ELSE  PERFORM 2010-DESTOCK-DEB
+                 THRU    2010-DESTOCK-FIN
+           END-IF.
+
+           PERFORM 6110-AREAPRO-LEC-DEB
+           THRU    6110-AREAPRO-LEC-FIN.
+           MOVE WS-ORIGINE TO WS-ORIGINE-C.
+           MOVE WS-ID-PRODUIT TO WS-ID-PRODUIT-C.
+           MOVE WS-STOCK TO WS-STOCK-C.
+           MOVE WS-QUOTITE TO WS-QUOTITE-C.
+           MOVE WS-QUANTITE-ALERTE TO WS-QUANTITE-ALERTE-C.
+           MOVE WS-QUANTITE-COMMANDEE TO WS-QUANTITE-COMMANDEE-C.
+           MOVE WS-QUANTITE-APPRO TO WS-QUANTITE-APPRO-C.
+
+       1000-CALCUL-FIN.
+           EXIT.
+
+       2000-RESTOCK-DEB.
+           PERFORM 7000-UPDATE-DEB
+           THRU    7000-UPDATE-FIN.
+
+           DISPLAY 'LA QUANTITE A RESTOCKER EST : '  WS-QUANTITE-REAPRO
+                   ' POUR LE PRODUIT : ' WS-ID-PRODUIT-C.
+
+           EXEC SQL
+            UPDATE APPRO
+               SET QUANTITE = :WS-QUANTITE-APPRO-C + :WS-QUANTITE-REAPRO
+               WHERE ID_PRODUIT = :WS-ID-PRODUIT-C
+           END-EXEC.
+
+           EXEC SQL
+            INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT, DATE_APPRO,
+                        STATUT, PRIX_ACHAT, QUANTITE)
+            VALUES
+            (( SELECT ID_CATEGORIE FROM PRODUITS WHERE ID_PRODUIT =
+             :WS-ID-PRODUIT-C), :WS-ID-PRODUIT-C,( SELECT DATE_TRT FROM
+             DATETR WHERE STATUT_DATETR = "A"),
+             "C",(SELECT PRIX_ACHAT FROM APPRO WHERE
+             ID_PRODUIT = :WS-ID-PRODUIT-C),
+             :WS-QUANTITE-REAPRO)
+           END-EXEC.
+
+       2000-RESTOCK-FIN.
+           EXIT.
+
+       2010-DESTOCK-DEB.
+
+           PERFORM 7000-UPDATE-DEB
+           THRU    7000-UPDATE-FIN.
+
+           DISPLAY 'LA QUANTITE A DESTOCKER EST : ' WS-QUANTITE-REAPRO
+                   ' POUR LE PRODUIT : ' WS-ID-PRODUIT-C.
+           EXEC SQL
+            UPDATE APPRO
+               SET QUANTITE = :WS-QUANTITE-APPRO-C - :WS-QUANTITE-REAPRO
+               WHERE ID_PRODUIT = :WS-ID-PRODUIT-C
+           END-EXEC.
+
+       2010-DESTOCK-FIN.
+           EXIT.
+
+
+       6100-AREAPRO-OUV-DEB.
+           OPEN INPUT FIN-AREAPRO.
+           IF WS-FS-FIN-AREAPRO NOT = ZERO
+              DISPLAY 'ERREUR OPEN AREAPRO' WS-FS-FIN-AREAPRO
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+       6100-AREAPRO-OUV-FIN. EXIT.
+
+       6110-AREAPRO-LEC-DEB.
+           READ FIN-AREAPRO
+               INTO WS-FIN-AREAPRO
+              AT END MOVE 'FIN' TO WS-AREAPRO-FLAG.
+           IF  WS-FS-FIN-AREAPRO NOT = '10' AND NOT = ZERO
+              DISPLAY 'ERREUR READ AREAPRO ' WS-FS-FIN-AREAPRO
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+           IF WS-FS-FIN-AREAPRO NOT = '10' AND NOT = ZERO
+              MOVE 'FIN' TO WS-AREAPRO-FLAG
+              MOVE HIGH-VALUE TO WS-FIN-AREAPRO
+           END-IF.
+           IF WS-FS-FIN-AREAPRO = ZERO
+              ADD 1 TO WS-CTR-FIN-AREAPRO
+           END-IF.
+       6110-AREAPRO-LEC-FIN. EXIT.
+
+       6120-AREAPRO-CLO-DEB.
+           CLOSE FIN-AREAPRO.
+           IF WS-FS-FIN-AREAPRO NOT = ZERO
+             DISPLAY 'ERREUR CLOSE AREAPRO' WS-FS-FIN-AREAPRO
+             PERFORM 9999-ERREUR-PROGRAMME-DEB
+             THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+       6120-AREAPRO-CLO-FIN. EXIT.
+
+       7000-UPDATE-DEB.
+
+           EXEC SQL
+             UPDATE PRODUITS
+                 SET STOCK = :WS-STOCK-C + :WS-QUANTITE-REAPRO
+                 WHERE ID_PRODUIT = :WS-ID-PRODUIT-C
+           END-EXEC.
+
+       7000-UPDATE-FIN. EXIT.
+
+       8999-STAT-DEB.
+           DISPLAY ' '.
+           DISPLAY '*********************************'.
+           DISPLAY '*STATISTIQUES DU PROGRAMME ' W-PROGE.
+           DISPLAY '*********************************'.
+           DISPLAY '                                 '.
+           MOVE WS-CTR-FIN-AREAPRO TO WS-CTE-FIN-AREAPRO.
+           DISPLAY 'ENREGISTREMENTS LUS AREAPRO : ' WS-CTE-FIN-AREAPRO  RO
+           DISPLAY ' '.
+       8999-STAT-FIN. EXIT.
+
+       9998-FIN-NORMALE-DEB.
+           DISPLAY '*********************************'.
+           DISPLAY '*FIN NORMALE DU PROGRAMME ' W-PROGE.
+           DISPLAY '*********************************'.
+           DISPLAY ' '.
+           GOBACK.
+
+       9998-FIN-NORMALE-FIN. EXIT.
+
+       9999-ERREUR-PROGRAMME-DEB.
+           DISPLAY '*********************************'.
+           DISPLAY '*FIN ANORMALE DU PROGRAMME ' W-PROGE.
+           DISPLAY '*UNE ANOMALIE A ETE DETECTEE*'.
+           DISPLAY '*********************************'.
+           DISPLAY 'WS-FS-FIN-AREAPRO   :  ' WS-FS-FIN-AREAPRO.
+           MOVE WS-CTR-FIN-AREAPRO TO WS-CTE-FIN-AREAPRO.
+           DISPLAY 'ENREGISTREMENTS LUS AREAPRO     ' WS-CTE-FIN-AREAPROO
+           GOBACK.
+
+       9999-ERREUR-PROGRAMME-FIN. EXIT.
+

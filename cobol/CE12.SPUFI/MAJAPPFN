@@ -1,0 +1,4 @@
+update datetr                                                           00010000
+set Statut_datetr = 'F' , libelle = 'RAS'                               00020002
+where Statut_datetr = 'A';                                              00030002
+select * from datetr                                                    00040000

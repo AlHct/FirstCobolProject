@@ -1,0 +1,28 @@
+      ******************************************************************
+      * DCLGEN TABLE(UFA03.CDEFOU)                                     *
+      *        LIBRARY(UFA03.CE12.DCLGEN(CTCDEFOU))                    *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE UFA03.CDEFOU TABLE
+           ( ID_FOURNISSEUR                 INTEGER NOT NULL,
+             ID_PRODUIT                     INTEGER NOT NULL,
+             DATE_APPRO                     DATE NOT NULL,
+             STATUT                         CHAR(1) NOT NULL,
+             PRIX_ACHAT                     FLOAT,
+             QUANTITE                       INTEGER
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE UFA03.CDEFOU                       *
+      ******************************************************************
+       01  DCLCDEFOU.
+           10 ID-FOURNISSEUR       PIC S9(9) USAGE COMP.
+           10 ID-PRODUIT           PIC S9(9) USAGE COMP.
+           10 DATE-APPRO           PIC X(10).
+           10 STATUT               PIC X(1).
+           10 PRIX-ACHAT           USAGE COMP-2.
+           10 QUANTITE             PIC S9(9) USAGE COMP.
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 6       *
+      ******************************************************************

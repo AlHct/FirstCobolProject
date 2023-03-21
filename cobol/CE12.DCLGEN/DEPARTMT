@@ -1,0 +1,28 @@
+      ******************************************************************
+      * DCLGEN TABLE(UFA02.DEPARTMENT)                                 *
+      *        LIBRARY(UFA02.CE12.DCLGEN(DEPARTMT))                    *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE UFA02.DEPARTMENT TABLE
+           ( DEPTNO                         CHAR(3) NOT NULL,
+             DEPTNAME                       VARCHAR(36) NOT NULL,
+             MGRNO                          CHAR(6),
+             ADMRDEPT                       CHAR(3),
+             LOCATION                       CHAR(16)
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE UFA02.DEPARTMENT                   *
+      ******************************************************************
+       01  DCLDEPARTMENT.
+           10 DEPTNO               PIC X(3).
+           10 DEPTNAME.
+              49 DEPTNAME-LEN      PIC S9(4) USAGE COMP.
+              49 DEPTNAME-TEXT     PIC X(36).
+           10 MGRNO                PIC X(6).
+           10 ADMRDEPT             PIC X(3).
+           10 LOCATION             PIC X(16).
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 5       *
+      ******************************************************************

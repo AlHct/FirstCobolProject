@@ -1,0 +1,14 @@
+//UFA06APR JOB CLASS=A,MSGCLASS=H,REGION=0M,NOTIFY=&SYSUID
+//*
+//JOBLIB   DD DISP=SHR,DSN=UFA06.CE12.LOAD
+//*
+//*---------------------------------------------------------------
+//* EXECUTION PROGRAMME COBOL D6REAPRO
+//*---------------------------------------------------------------
+//SEPAR   EXEC PGM=D6REAPRO
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//INSTOCK  DD DSN=UFA06.FIC.D6STOCK,DISP=SHR
+//OUREAPRO DD DSN=UFA06.FIC.AREAPRO,DISP=SHR
+//OUSUFFIS DD DSN=UFA06.FIC.SUFFIS,DISP=SHR
+//*--------------------------------------------------------------

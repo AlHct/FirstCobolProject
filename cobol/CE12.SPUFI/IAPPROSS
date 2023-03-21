@@ -1,0 +1,96 @@
+-- insertion dans la table APPRO
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(1, 1, 3129.54);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(2, 2, 8813.17);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(3, 3, 7822.37);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(4, 4, 6485.22);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(5, 5, 9150.71);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(6, 6, 6126.11);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(7, 7, 3828.05);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(8, 8, 8645.02);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(1, 9, 183.35);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(2, 10, 2820.56);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(3, 11, 373.54);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(4, 12, 5129.16);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(6, 14, 3008.76);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(7, 15, 2974.57);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(8, 16, 6211.6);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(1, 17, 4078.62);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(2, 18, 2005.31);
+insert into APPRO (id_fournisseur, id_produit, prix_achat)
+values (3, 19, 3977.95);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(4, 20, 649.83);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(5, 10, 3771.71);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(6, 2, 3897.04);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(7, 3, 5840.81);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(8, 4, 2727.99);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(1, 6, 8259.33);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(2, 6, 3773.9);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(3, 7, 6753.52);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(4, 8, 1018.27);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(5, 9, 9126.4);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(6, 10, 4279.07);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(8, 12, 9688.73);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(1, 13, 7856.74);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(2, 14, 6654.14);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(3, 15, 7247.92);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(4, 16, 6742.42);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(6, 18, 7510.56);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(7, 19, 7134.61);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(8, 20, 2799.85);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(1, 10, 7686.57);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(2, 20, 79.72);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(3, 8, 4866.53);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(4, 10, 4108.67);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(6, 5, 4233.1);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(7, 10, 2718.85);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(8, 10, 3826.16);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(9, 3, 3652.8);
+insert into APPRO (id_fournisseur, id_produit, prix_achat) values
+(1, 5, 1206.91);
+
+     commit  ;
+     select  *  from APPRO ;

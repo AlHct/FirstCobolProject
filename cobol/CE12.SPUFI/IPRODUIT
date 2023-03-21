@@ -1,0 +1,44 @@
+-- insertion dans la table produits
+insert into produits (id_produit, designation, prix) values
+(1, 'Tart Shells - Sweet, 4', 6.68);
+insert into produits (id_produit, designation, prix) values
+(2, 'Sauce - Balsamic Viniagrette', 90.9);
+insert into produits (id_produit, designation, prix) values
+(3, 'Cheese - Swiss', 15.07);
+insert into produits (id_produit, designation, prix) values
+(4, 'Apple - Fuji', 9.71);
+insert into produits (id_produit, designation, prix) values
+(5, 'Arizona - Green Tea', 17.01);
+insert into produits (id_produit, designation, prix) values
+(6, 'Chicken - Breast, 5 - 7 Oz', 93.74);
+insert into produits (id_produit, designation, prix) values
+(7, 'Maintenance Removal Charge', 60.51);
+insert into produits (id_produit, designation, prix) values
+(8, 'Bagel - Everything Presliced', 9.85);
+insert into produits (id_produit, designation, prix) values
+(9, 'V8 Splash Strawberry Kiwi', 8.68);
+insert into produits (id_produit, designation, prix) values
+(10, 'Stock - Beef, White', 7.41);
+insert into produits (id_produit, designation, prix) values
+(11, 'Water - Tonic', 7.01);
+insert into produits (id_produit, designation, prix) values
+(12, 'Cheese - Roquefort Pappillon', 73.24);
+insert into produits (id_produit, designation, prix) values
+(13, 'Cabbage - Nappa', 18.12);
+insert into produits (id_produit, designation, prix) values
+(14, 'Cheese - Grie Des Champ', 16.42);
+insert into produits (id_produit, designation, prix) values
+(15, 'Flower - Commercial Bronze', 6.37);
+insert into produits (id_produit, designation, prix) values
+(16, 'Cheese - St. Andre', 6.6);
+insert into produits (id_produit, designation, prix) values
+(17, 'Pineapple - Canned, Rings', 9.36);
+insert into produits (id_produit, designation, prix) values
+(18, 'Soup Bowl Clear', 5.07);
+insert into produits (id_produit, designation, prix) values
+(19, 'Honey - Lavender', 7.85);
+insert into produits (id_produit, designation, prix) values
+(20, 'Oil - Shortening,liqud, Fry', 7.76);
+
+    commit  ;
+   select * from   produits  ;

@@ -1,0 +1,192 @@
+--
+-- insertion dans la table CDEFOU
+--   ;
+     SELECT  *  FROM CDEFOU
+  ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (1, 1, CURRENT DATE - 14 days , 3128.54)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (2, 2, current date - 14 days , 8813.17)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (3, 3, current date - 14 days , 7822.37)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (4, 4, current date - 14 days , 6485.22)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (5, 5, current date - 14 days , 9150.71)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (6, 6, current date - 14 days , 6126.11)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (7, 7, current date - 14 days , 3828.05)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (8, 8, current date - 14 days , 8645.02)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (1, 9, current date - 14 days , 183.35)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (2, 10, current date - 14 days , 2820.56)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (3, 11, current date - 14 days , 373.54)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (4, 12, current date - 14 days , 5129.16)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (6, 14, current date - 14 days , 3008.76)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (7, 15, current date - 14 days , 2974.57)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (8, 16, current date - 14 days , 6211.6)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (1, 17, current date - 14 days , 4078.62)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (2, 18, current date - 14 days , 2005.31)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (4, 20, current date - 14 days , 649.83)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (5, 10, current date - 14 days , 3771.71)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (6, 2, current date - 14 days , 3897.04)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (7, 3, current date - 14 days , 5840.81)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (8, 4, current date - 14 days , 2727.99)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (1, 6, current date - 14 days , 8259.33)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (2, 6, current date - 14 days , 3773.9)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (3, 7, current date - 14 days , 6753.52)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (4, 8, current date - 14 days , 1018.27)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (5, 9, current date - 14 days , 9126.4)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (6, 10, current date - 14 days , 4279.07)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (8, 12, current date - 14 days , 9688.73)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (1, 13, current date - 14 days , 7856.74)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (2, 14, current date - 14 days , 6654.14)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (3, 15, current date - 14 days , 7247.92)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (4, 16, current date - 14 days , 6742.42)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (6, 18, current date - 14 days , 7510.56)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (7, 19, current date - 14 days , 7134.61)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (8, 20, current date - 14 days , 2799.85)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (1, 10, current date - 14 days , 7686.57)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (2, 20, current date - 14 days , 79.72)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (3, 8, current date - 14 days , 4866.53)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (9, 3, current date - 14 days , 3652.8)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (4, 10, current date - 14 days , 4108.67)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (6, 5, current date - 14 days , 4233.1)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (7, 10, current date - 14 days , 2718.85)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (8, 10, current date - 14 days , 3826.16)
+     ;
+     INSERT INTO CDEFOU (ID_FOURNISSEUR, ID_PRODUIT
+          , DATE_APPRO , PRIX_ACHAT) VALUES
+     (1, 5, current date - 14 days , 1206.91)
+  ;
+     COMMIT
+  ;
+     select  *  from CDEFOU
+  ;
+  ;
+     COMMIT  ;
+     select  *  from APPRO ;

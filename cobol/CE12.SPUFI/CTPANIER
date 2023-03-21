@@ -1,0 +1,23 @@
+   --  DROP INDEX  IXTCLIE_ID ;
+        select *   from commandes  ;
+---------------------
+   --  DROP   TABLE paniers      ;
+   --  COMMIT ;
+   --   select *   from PANIER     ;
+-- CONCERNE(#id_commande,#id_produit quantite)
+    CREATE TABLE paniers(
+	      id_commande     INT   not null,
+       id_produit      INT   not null ,
+       quantite        INT,
+       PRIMARY         KEY(id_commande, id_produit),
+       CONSTRAINT      fk_commandes_paniers FOREIGN KEY(id_commande)
+       REFERENCES commandes(id_commande)
+       ON DELETE CASCADE,
+       CONSTRAINT      fk_produits_paniers FOREIGN KEY(id_produit)
+       REFERENCES produits(id_produit)
+       ON DELETE restrict
+      )
+       IN DATABASE ZERDB
+      ;
+     -----
+       COMMIT ;

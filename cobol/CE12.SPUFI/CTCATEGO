@@ -1,0 +1,15 @@
+   --  DROP INDEX  IXTCLIE_ID ;
+   --  COMMIT ;
+   --   IN DATABASE ZERDB
+---------------------
+   --  DROP   TABLE categories   ;
+   --  COMMIT ;
+     -----
+     CREATE TABLE categories(
+	       id_categorie     INT PRIMARY KEY not null,
+        libelle          VARCHAR(100) NOT NULL
+      )
+       IN DATABASE ZERDB
+      ;
+---------
+      commit;

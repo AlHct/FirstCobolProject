@@ -1,0 +1,30 @@
+      ******************************************************************
+      * DCLGEN TABLE(UFA02.CLIENTS)                                    *
+      *        LIBRARY(UFA02.CE12.DCLGEN(CLIENTSS))                    *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE UFA02.CLIENTS TABLE
+           ( ID_CLIENT                      INTEGER NOT NULL,
+             NOM                            VARCHAR(255) NOT NULL,
+             PRENOM                         VARCHAR(255) NOT NULL,
+             VILLE                          VARCHAR(255) NOT NULL
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE UFA02.CLIENTS                      *
+      ******************************************************************
+       01  DCLCLIENTS.
+           10 ID-CLIENT            PIC S9(9) USAGE COMP.
+           10 NOM.
+              49 NOM-LEN           PIC S9(4) USAGE COMP.
+              49 NOM-TEXT          PIC X(255).
+           10 PRENOM.
+              49 PRENOM-LEN        PIC S9(4) USAGE COMP.
+              49 PRENOM-TEXT       PIC X(255).
+           10 VILLE.
+              49 VILLE-LEN         PIC S9(4) USAGE COMP.
+              49 VILLE-TEXT        PIC X(255).
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 4       *
+      ******************************************************************

@@ -1,0 +1,26 @@
+-- insertion dans la table fournisseurs
+   delete from   fournisseurs   ;
+   commit ;
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(1, 'Oyope', 'Philippines');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(2, 'Omba', 'Czech Republic');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(3, 'Wordtune', 'China');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(4, 'Zoozzy', 'Indonesia');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(5, 'Yacero', 'Italy');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(6, 'Fliptune', 'Mauritania');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(7, 'Flashset', 'China');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(8, 'Fanoodle', 'United States');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(9, 'Linktype', 'Brazil');
+insert into fournisseurs (id_fournisseur, nom, pays) values
+(10, 'Kanoodle', 'China');
+
+     commit ;
+     select *    from   fournisseurs ;

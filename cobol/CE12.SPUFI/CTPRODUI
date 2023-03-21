@@ -1,0 +1,29 @@
+   --  DROP   TABLE clients   ;
+   --  COMMIT ;
+   --  DROP INDEX  IXTCLIE_ID ;
+   --  COMMIT ;
+   --   IN DATABASE ZERDB
+---------------------
+--     DROP   TABLE produits  ;
+--    commit;
+--    SELECT * FROM PRODUITS  ;
+----------------------------------
+-- PRODUITS(id_produit, designation, prix_unitaire, quantite_alerte)
+----------------------------------
+      CREATE TABLE produits(
+	      id_produit      int not null  PRIMARY KEY   ,
+       designation     VARCHAR(255) NOT NULL,
+       Prix            FLOAT,
+       STOCK           INT  with   default 0,
+       QUOTITE         INT  with   default 1,
+       quantite_alerte INT  with   default 0,
+       id_categorie    INT    DEFAULT 4,
+       CONSTRAINT      fk_id_categorie FOREIGN KEY(id_categorie)
+       REFERENCES      categories(id_categorie)
+       ON DELETE SET NULL
+      )
+       IN DATABASE ZERDB
+      ;
+---------
+      commit;
+----------------------------------

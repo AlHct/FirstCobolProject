@@ -1,0 +1,33 @@
+      ******************************************************************
+      * DCLGEN TABLE(UFA02.PRODUITS)                                   *
+      *        LIBRARY(UFA02.CE12.DCLGEN(PRODUITS))                    *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE UFA02.PRODUITS TABLE
+           ( ID_PRODUIT                     INTEGER NOT NULL,
+             DESIGNATION                    VARCHAR(255) NOT NULL,
+             PRIX                           FLOAT,
+             STOCK                          INTEGER,
+             QUOTITE                        INTEGER,
+             QUANTITE_ALERTE                INTEGER,
+             ID_CATEGORIE                   INTEGER
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE UFA02.PRODUITS                     *
+      ******************************************************************
+       01  DCLPRODUITS.
+           10 ID-PRODUIT           PIC S9(9) USAGE COMP.
+           10 DESIGNATION.
+              49 DESIGNATION-LEN   PIC S9(4) USAGE COMP.
+              49 DESIGNATION-TEXT
+                 PIC X(255).
+           10 PRIX                 USAGE COMP-2.
+           10 STOCK                PIC S9(9) USAGE COMP.
+           10 QUOTITE              PIC S9(9) USAGE COMP.
+           10 QUANTITE-ALERTE      PIC S9(9) USAGE COMP.
+           10 ID-CATEGORIE         PIC S9(9) USAGE COMP.
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 7       *
+      ******************************************************************

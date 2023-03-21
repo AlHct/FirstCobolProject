@@ -1,0 +1,55 @@
+      ******************************************************************
+      * DCLGEN TABLE(CE12.PROJECT)                                     *
+      *        LIBRARY(UFA00.CE12.COPY(PROJECT))                       *
+      *        ACTION(REPLACE)                                         *
+      *        LANGUAGE(COBOL)                                         *
+      *        NAMES(PROJ-)                                            *
+      *        STRUCTURE(PROJ)                                         *
+      *        QUOTE                                                   *
+      *        COLSUFFIX(YES)                                          *
+      *        INDVAR(YES)                                             *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE CE12.PROJECT TABLE
+           ( PROJNO                         CHAR(6) NOT NULL,
+             PROJNAME                       VARCHAR(24) NOT NULL,
+             DEPTNO                         CHAR(3) NOT NULL,
+             RESPEMP                        CHAR(6) NOT NULL,
+             PRSTAFF                        DECIMAL(5, 2),
+             PRSTDATE                       DATE,
+             PRENDATE                       DATE,
+             MAJPROJ                        CHAR(6)
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE CE12.PROJECT                       *
+      ******************************************************************
+       01  PROJ.
+      *                       PROJNO
+           10 PROJ-PROJNO          PIC X(6).
+           10 PROJ-PROJNAME.
+      *                       PROJNAME LENGTH
+              49 PROJ-PROJNAME-LEN
+                 PIC S9(4) USAGE COMP.
+      *                       PROJNAME
+              49 PROJ-PROJNAME-TEXT
+                 PIC X(24).
+      *                       DEPTNO
+           10 PROJ-DEPTNO          PIC X(3).
+      *                       RESPEMP
+           10 PROJ-RESPEMP         PIC X(6).
+      *                       PRSTAFF
+           10 PROJ-PRSTAFF         PIC S9(3)V9(2) USAGE COMP-3.
+      *                       PRSTDATE
+           10 PROJ-PRSTDATE        PIC X(10).
+      *                       PRENDATE
+           10 PROJ-PRENDATE        PIC X(10).
+      *                       MAJPROJ
+           10 PROJ-MAJPROJ         PIC X(6).
+      ******************************************************************
+      * INDICATOR VARIABLE STRUCTURE                                   *
+      ******************************************************************
+       01  IPROJECT.
+           10 INDSTRUC           PIC S9(4) USAGE COMP OCCURS 8 TIMES.
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 8       *
+      ******************************************************************

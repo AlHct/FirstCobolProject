@@ -1,0 +1,8 @@
+-- insertion des categories
+insert into categories (id_categorie, libelle) values (1, 'Fruits');
+insert into categories (id_categorie, libelle) values (2, 'Viande');
+insert into categories (id_categorie, libelle) values (3, 'Liquide');
+insert into categories (id_categorie, libelle) values (4, 'Divers');
+
+   commit ;
+   select *  from    categories ;

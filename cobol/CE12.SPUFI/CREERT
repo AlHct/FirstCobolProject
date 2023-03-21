@@ -1,0 +1,98 @@
+   --  DROP   TABLE clients   ;
+   --  COMMIT ;
+   --  DROP INDEX  IXTCLIE_ID ;
+   --  COMMIT ;
+   --   IN DATABASE ZERDB
+---------------------
+-- CLIENTS(id_client, nom, prenom, adresse)
+---------------------
+       DROP   TABLE clients   ;
+       COMMIT ;
+     CREATE TABLE clients(
+	      id_client      INT          not null,
+       nom            VARCHAR(255) NOT NULL,
+       prenom         VARCHAR(255) NOT NULL,
+       ville          VARCHAR(255) NOT NULL,
+       primary key    (id_client)
+      )
+       IN DATABASE ZERDB
+      ;
+      commit;
+     -----
+       DROP   TABLE categories   ;
+       COMMIT ;
+     -----
+     CREATE TABLE categories(
+	       id_categorie     INT PRIMARY KEY not null,
+        libelle          VARCHAR(100) NOT NULL
+      )
+       IN DATABASE ZERDB
+      ;
+---------
+      commit;
+--     DROP   TABLE produits  ;
+--    commit;
+----------------------------------
+-- PRODUITS(id_produit, designation, prix_unitaire, quantite_alerte)
+----------------------------------
+      CREATE TABLE produits(
+	      id_produit       int          PRIMARY KEY   ,
+       designation     VARCHAR(255) NOT NULL,
+       prix            FLOAT,
+       quantite_alerte INT    DEFAULT 10,
+       id_categorie    INT    DEFAULT 4,
+       CONSTRAINT      fk_id_categorie FOREIGN KEY(id_categorie)
+       REFERENCES      categories(id_categorie)
+       ON DELETE SET NULL
+      )
+       IN DATABASE ZERDB
+      ;
+---------
+      commit;
+----------------------------------
+-- FOURNISSEURS(id_fournisseur, nom, adresse)
+----------------------------------
+    CREATE TABLE fournisseurs(
+	      id_fournisseur INT PRIMARY KEY AUTO_INCREMENT,
+       nom VARCHAR(255) NOT NULL,
+       pays VARCHAR(255) NOT NULL
+    );
+----------------------------------
+-- COMMANDES(id_commande, date, adresse, #id_clilent)
+----------------------------------
+   CREATE TABLE commandes(
+	      id_commande     INT PRIMARY KEY AUTO_INCREMENT,
+       date_commande   DATETIME DEFAULT NOW(),
+       adresse         VARCHAR(255),
+       id_client       INT,
+       CONSTRAINT fk_commandes_clients FOREIGN KEY(id_client)
+       REFERENCES clients(id_client)
+    );
+
+-- CONCERNE(#id_commande,#id_produit quantite)
+    CREATE TABLE paniers(
+	      id_commande     INT,
+       id_produit      INT,
+       quantite        INT,
+       PRIMARY KEY(id_commande, id_produit),
+       CONSTRAINT fk_commandes_paniers FOREIGN KEY(id_commande)
+       REFERENCES commandes(id_commande)
+       ON DELETE CASCADE,
+       CONSTRAINT fk_produits_paniers FOREIGN KEY(id_produit)
+       REFERENCES produits(id_produit)
+      );
+-----------------------------------------------------------------
+-- PROVIENT(#id_produit,#id_fournisseur prix_achat)
+-- achats
+-----------------------------------------------------------------
+CREATE TABLE livraisons(
+     id_fournisseur  INT,
+	    id_produit      INT,
+     prix_achat      FLOAT,
+     quantite        INT,
+     PRIMARY KEY(id_produit, id_fournisseur),
+     CONSTRAINT fk_produits_livraisons FOREIGN KEY(id_produit)
+     REFERENCES produit(id_produit),
+     CONSTRAINT fk_fournisseurs_livraisons FOREIGN KEY(id_fournisseur)
+     REFERENCES fournisseurs(id_fournisseur)
+     );

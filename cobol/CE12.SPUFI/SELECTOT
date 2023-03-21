@@ -1,0 +1,19 @@
+   --  SELECT
+   --  COMMIT ;
+   --   IN DATABASE ZERDB
+---------------------
+       SELECT * FROM   CATEGORIES   ;
+       SELECT * FROM   PRODUITS     ;
+       SELECT * FROM   FOURNISSEURS ;
+       SELECT * FROM   APPRO        ;
+       SELECT * FROM   CLIENTS      ;
+       SELECT * FROM   COMMANDES    ;
+       SELECT * FROM   PANIERS      ;
+       SELECT COUNT(*)  FROM   CATEGORIES   ;
+       SELECT COUNT(*)  FROM   PRODUITS     ;
+       SELECT COUNT(*)  FROM   FOURNISSEURS ;
+       SELECT COUNT(*)  FROM   APPRO        ;
+       SELECT COUNT(*)  FROM   CLIENTS      ;
+       SELECT COUNT(*)  FROM   COMMANDES    ;
+       SELECT COUNT(*)  FROM   PANIERS      ;
+     -----

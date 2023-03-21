@@ -1,0 +1,145 @@
+-- insertion dans la table paniers
+    select id_commande  from   commandes  ;
+    select id_produit   from   produits   ;
+insert into paniers (id_commande, id_produit, quantite) values
+(1, 1, 3);
+insert into paniers (id_commande, id_produit, quantite) values
+(1, 2, 17);
+insert into paniers (id_commande, id_produit, quantite) values
+(1, 3, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(2, 4, 5);
+insert into paniers (id_commande, id_produit, quantite) values
+(2, 5, 14);
+insert into paniers (id_commande, id_produit, quantite) values
+(3, 1, 9);
+insert into paniers (id_commande, id_produit, quantite) values
+(3, 2, 1);
+insert into paniers (id_commande, id_produit, quantite) values
+(4, 3, 4);
+insert into paniers (id_commande, id_produit, quantite) values
+(4, 4, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(5, 5, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(1, 8, 5);
+insert into paniers (id_commande, id_produit, quantite) values
+(2, 2, 9);
+insert into paniers (id_commande, id_produit, quantite) values
+(3, 3, 8);
+insert into paniers (id_commande, id_produit, quantite) values
+(4, 14, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(5, 7, 17);
+insert into paniers (id_commande, id_produit, quantite) values
+(6, 6, 13);
+insert into paniers (id_commande, id_produit, quantite) values
+(7, 7, 10);
+insert into paniers (id_commande, id_produit, quantite) values
+(8, 8, 15);
+insert into paniers (id_commande, id_produit, quantite) values
+(9, 9, 18);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 10, 18);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 11, 6);
+insert into paniers (id_commande, id_produit, quantite) values
+(12, 12, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(13, 13, 17);
+insert into paniers (id_commande, id_produit, quantite) values
+(14, 14, 14);
+insert into paniers (id_commande, id_produit, quantite) values
+(15, 15, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(16, 16, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(17, 17, 3);
+insert into paniers (id_commande, id_produit, quantite) values
+(18, 18, 13);
+insert into paniers (id_commande, id_produit, quantite) values
+(19, 19, 3);
+insert into paniers (id_commande, id_produit, quantite) values
+(20, 20, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(21, 1, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(22, 2, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(23, 3, 15);
+insert into paniers (id_commande, id_produit, quantite) values
+(24, 4, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(25, 5, 4);
+insert into paniers (id_commande, id_produit, quantite) values
+(26, 6, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(27, 7, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(28, 8, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(29, 9, 1);
+insert into paniers (id_commande, id_produit, quantite) values
+(30, 10, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(31, 11, 2);
+insert into paniers (id_commande, id_produit, quantite) values
+(32, 12, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(33, 13, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(34, 14, 8);
+insert into paniers (id_commande, id_produit, quantite) values
+(35, 15, 6);
+insert into paniers (id_commande, id_produit, quantite) values
+(36, 16, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(37, 17, 10);
+insert into paniers (id_commande, id_produit, quantite) values
+(38, 18, 10);
+insert into paniers (id_commande, id_produit, quantite) values
+(39, 19, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(40, 20, 7);
+insert into paniers (id_commande, id_produit, quantite) values
+(41, 1, 14);
+insert into paniers (id_commande, id_produit, quantite) values
+(42, 2, 15);
+insert into paniers (id_commande, id_produit, quantite) values
+(43, 3, 13);
+insert into paniers (id_commande, id_produit, quantite) values
+(44, 4, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(45, 5, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(46, 6, 14);
+insert into paniers (id_commande, id_produit, quantite) values
+(47, 7, 1);
+insert into paniers (id_commande, id_produit, quantite) values
+(48, 8, 11);
+insert into paniers (id_commande, id_produit, quantite) values
+(49, 9, 11);
+insert into paniers (id_commande, id_produit, quantite) values
+(50, 10, 12);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 1, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 2, 15);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 3, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 4, 20);
+insert into paniers (id_commande, id_produit, quantite) values
+(10, 5, 17);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 6, 16);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 7, 11);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 8, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 9, 19);
+insert into paniers (id_commande, id_produit, quantite) values
+(11, 10, 11);
+     commit ;
+     select *   from paniers  ;

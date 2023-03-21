@@ -1,0 +1,174 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. D6LIVRAI.
+
+      *=========================================================*
+      *                                                         *
+      *      MISE A JOUR DES STOCKS DE LA TABLE PRODUITS        *
+      *         ET CHANGEMENT DU STATUT DES COMMANDES           *
+      *                                                         *
+      *=========================================================*
+
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+
+      *COMPTEUR LIGNES TABLES
+       01     LIVRAISON-CPTENR   PIC 9(9) VALUE ZERO.
+       01     LIVRAISON-CPTENR-ED PIC Z(9)9.
+      *SQLCODE
+       01     W-SQLCODE           PIC -(3)9 VALUE ZERO.
+
+      *CODE PROGRAMME
+       01     W-PROGE             PIC X(8) VALUE 'D6LIVRAI'.
+
+      * DB2 : SQLCA
+           EXEC SQL
+                INCLUDE SQLCA
+           END-EXEC.
+
+      * TABLES DB2
+           EXEC SQL
+                INCLUDE PRODUITS
+           END-EXEC.
+
+           EXEC SQL
+                INCLUDE PANIERSS
+           END-EXEC.
+
+           EXEC SQL
+                INCLUDE COMMANDE
+           END-EXEC.
+
+      * DECLARE CURSEUR TABLES
+           EXEC SQL DECLARE LIVRAISON-CURSEUR CURSOR FOR
+             SELECT
+                   ID_PRODUIT, SUM(QUANTITE)
+                   FROM PANIERS P, COMMANDES C
+                   WHERE C.ID_COMMANDE = P.ID_COMMANDE
+                      AND STATUT = "C"
+                   GROUP BY ID_PRODUIT
+             ORDER BY 1
+           END-EXEC.
+
+       01 WS-ID-PRODUIT   PIC S9(9) COMP.
+       01 WS-QUANTITE     PIC S9(9) COMP.
+      ***********************************************************
+
+       PROCEDURE DIVISION.
+
+       0000-DEBUT-DEB.
+
+           DISPLAY 'DEBUT DU PROGRAMME ' W-PROGE.
+
+           PERFORM 6000-OPEN-LIVRAISON-DEB
+           THRU    6000-OPEN-LIVRAISON-FIN.
+
+           PERFORM 6020-FETCH-LIVRAISON-DEB
+           THRU    6020-FETCH-LIVRAISON-FIN.
+
+           PERFORM 1000-LIVRAISON-DEB
+           THRU    1000-LIVRAISON-FIN
+                  UNTIL SQLCODE NOT = ZERO.
+
+           PERFORM 6010-CLOSE-LIVRAISON-DEB
+           THRU    6010-CLOSE-LIVRAISON-FIN.
+
+           PERFORM 6030-UPDATE-STATUT-DEB
+           THRU    6030-UPDATE-STATUT-FIN.
+      * AFFICHAGE DES STAT
+           PERFORM 8999-STAT-DEB
+           THRU    8999-STAT-FIN.
+
+           PERFORM 9998-FIN-NORMALE-DEB
+           THRU    9998-FIN-NORMALE-FIN.
+
+       0000-DEBUT-FIN. EXIT.
+
+       1000-LIVRAISON-DEB.
+           EXEC SQL
+             UPDATE PRODUITS R
+               SET STOCK = STOCK - (SELECT SUM(QUANTITE) FROM PANIERS P
+               WHERE P.ID_PRODUIT = R.ID_PRODUIT )
+           END-EXEC.
+           PERFORM 6020-FETCH-LIVRAISON-DEB
+           THRU    6020-FETCH-LIVRAISON-FIN.
+       1000-LIVRAISON-FIN.
+           EXIT.
+
+
+       6000-OPEN-LIVRAISON-DEB.
+           EXEC SQL
+                OPEN LIVRAISON-CURSEUR
+           END-EXEC .
+       6000-OPEN-LIVRAISON-FIN.
+           EXIT.
+
+       6010-CLOSE-LIVRAISON-DEB.
+           EXEC SQL
+                CLOSE LIVRAISON-CURSEUR
+           END-EXEC .
+       6010-CLOSE-LIVRAISON-FIN.
+           EXIT.
+
+       6020-FETCH-LIVRAISON-DEB.
+           EXEC SQL
+                FETCH LIVRAISON-CURSEUR
+                 INTO
+                     :WS-ID-PRODUIT,
+                     :WS-QUANTITE
+           END-EXEC.
+
+           EVALUATE SQLCODE
+              WHEN ZERO ADD 1 TO LIVRAISON-CPTENR
+              WHEN 100 DISPLAY 'FIN'
+              WHEN OTHER MOVE SQLCODE TO W-SQLCODE
+                         DISPLAY 'SQLCODE : ' W-SQLCODE
+                   PERFORM 9999-ERREUR-PROGRAMME-DEB
+                   THRU    9999-ERREUR-PROGRAMME-FIN
+           END-EVALUATE.
+
+       6020-FETCH-LIVRAISON-FIN.
+           EXIT.
+
+       6030-UPDATE-STATUT-DEB.
+           EXEC SQL
+                UPDATE COMMANDES
+                SET STATUT = "L"
+                WHERE STATUT = "C"
+           END-EXEC.
+       6030-UPDATE-STATUT-FIN. EXIT.
+
+       8999-STAT-DEB.
+           DISPLAY ' '.
+           DISPLAY '*********************************'.
+           DISPLAY '*STATISTIQUES DU PROGRAMME ' W-PROGE.
+           DISPLAY '*********************************'.
+           DISPLAY '                                 '.
+           MOVE LIVRAISON-CPTENR TO LIVRAISON-CPTENR-ED.
+           DISPLAY 'NB-FETCH  :   ' LIVRAISON-CPTENR-ED.                RO
+           DISPLAY ' '.
+       8999-STAT-FIN. EXIT.
+
+       9998-FIN-NORMALE-DEB.
+           DISPLAY '*********************************'.
+           DISPLAY ' TOUTES LES COMMANDES ONT ETE LIVREES '.
+           DISPLAY '*FIN NORMALE DU PROGRAMME ' W-PROGE.
+           DISPLAY '*********************************'.
+           DISPLAY ' '.
+           GOBACK.
+
+       9998-FIN-NORMALE-FIN. EXIT.
+
+       9999-ERREUR-PROGRAMME-DEB.
+           DISPLAY '*********************************'.
+           DISPLAY '*FIN ANORMALE DU PROGRAMME ' W-PROGE.
+           DISPLAY '*UNE ANOMALIE A ETE DETECTEE*'.
+           DISPLAY '*********************************'.
+           MOVE LIVRAISON-CPTENR TO LIVRAISON-CPTENR-ED.
+           DISPLAY 'NB-FETCH  :   ' LIVRAISON-CPTENR-ED.                RO
+           MOVE SQLCODE TO W-SQLCODE.
+           DISPLAY W-SQLCODE.
+           GOBACK.
+
+       9999-ERREUR-PROGRAMME-FIN. EXIT.
+

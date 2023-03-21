@@ -1,0 +1,16 @@
+--     DROP TABLE  DATETR     ;
+--     COMMIT ;
+     CREATE TABLE DATETR(
+        DATE_TRT        DATE        NOT NULL
+      , STATUT_DATETR   CHAR(1)
+      , LIBELLE         CHAR(30) NOT NULL WITH DEFAULT ' '
+     ,  PRIMARY KEY(DATE_TRT)
+      )
+       IN DATABASE ZERDB
+      ;
+      COMMIT
+      ;
+-----------------------------------------------------------------
+      SELECT  *
+           FROM  DATETR
+      ;

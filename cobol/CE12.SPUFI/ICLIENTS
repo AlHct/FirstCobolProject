@@ -1,0 +1,48 @@
+-- insertion dans la table clients
+insert into clients (id_client, nom, prenom, ville) values
+(1, 'Hyatt', 'Battisson', 'Magan');
+insert into clients (id_client, nom, prenom, ville) values
+(2, 'Anstice', 'Whaplington', 'Heping');
+insert into clients (id_client, nom, prenom, ville) values
+(3, 'Fredrika', 'Hallwood', 'Hagfors');
+insert into clients (id_client, nom, prenom, ville) values
+(4, 'Beverlie', 'Warret', 'Toulouse');
+insert into clients (id_client, nom, prenom, ville) values
+(5, 'Kellen', 'Fake', 'Árgos');
+insert into clients (id_client, nom, prenom, ville) values
+(6, 'Hamil', 'Owbridge', 'Ipaba');
+insert into clients (id_client, nom, prenom, ville) values
+(7, 'Lisbeth', 'Miranda', 'Jingmen');
+insert into clients (id_client, nom, prenom, ville) values
+(8, 'Johnathan', 'Salan', 'Doyong');
+insert into clients (id_client, nom, prenom, ville) values
+(9, 'Adena', 'Camilleri', 'Ust’-Kut');
+insert into clients (id_client, nom, prenom, ville) values
+(10, 'Patten', 'Swaile', 'Shangdongjie');
+insert into clients (id_client, nom, prenom, ville) values
+(11, 'Thomasine', 'Sliney', 'Donja Dubica');
+insert into clients (id_client, nom, prenom, ville) values
+(12, 'Alexandro', 'Benoi', 'Palmital');
+insert into clients (id_client, nom, prenom, ville) values
+(13, 'Loutitia', 'Duester', 'Xiaolukou');
+insert into clients (id_client, nom, prenom, ville) values
+(14, 'Giselle', 'Eagers', 'Villa Consuelo');
+insert into clients (id_client, nom, prenom, ville) values
+(15, 'Cash', 'Tear', 'Galovac');
+insert into clients (id_client, nom, prenom, ville) values
+(16, 'Ulrikaumeko', 'MacNish', 'General Martín Miguel de Güemes');
+insert into clients (id_client, nom, prenom, ville) values
+(17, 'Amandy', 'Sycamore', 'Şirvan');
+insert into clients (id_client, nom, prenom, ville) values
+(18, 'Colline', 'Clampett', 'Tambovka');
+insert into clients (id_client, nom, prenom, ville) values
+(19, 'Christin', 'Brookshaw', 'Wińsko');
+insert into clients (id_client, nom, prenom, ville) values
+(20, 'Sherm', 'Oldershaw', 'Vällingby');
+insert into clients (id_client, nom, prenom, ville) values
+(21, 'Owain', 'James', 'Ipaba');
+insert into clients (id_client, nom, prenom, ville) values
+(22, 'Katy', 'Doe', 'Ipaba');
+insert into clients (id_client, nom, prenom, ville) values
+(23, 'Durand', 'Antoine', 'Toulouse');
+

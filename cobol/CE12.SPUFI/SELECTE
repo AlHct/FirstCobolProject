@@ -1,0 +1,21 @@
+             update produits
+              set stock = 500 where id_produit = 4 ;
+             update commandes
+              set statut = 'C' where id_produit = 4 ;
+             SELECT 'P', ID_PRODUIT, VALUE(STOCK, 0),
+                VALUE(QUOTITE, 0), VALUE(QUANTITE_ALERTE, 0)
+             FROM PRODUITS
+             UNION ALL
+             SELECT
+                'A', ID_PRODUIT, VALUE(QUANTITE, 0), 0, 0
+             FROM APPRO
+             WHERE STATUT = 'C'
+             UNION ALL
+             SELECT
+                'C', ID_PRODUIT, VALUE(QUANTITE, 0), 0, 0
+             FROM PANIERS P , COMMANDES C
+             WHERE C.ID_COMMANDE = P.ID_COMMANDE
+              AND STATUT = 'C' ;
+             ORDER BY 2 ;
+
+      select * from categories ;

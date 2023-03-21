@@ -1,0 +1,21 @@
+   --  DROP INDEX  IXTCLIE_ID ;
+---------------------
+  ---  DROP   TABLE commandes ;
+  ---  COMMIT ;
+  ---  SELECT * FROM COMMANDES ;
+----------------------------------
+-- COMMANDES(id_commande, date, adresse, #id_clilent)
+----------------------------------
+   CREATE TABLE commandes(
+	      id_commande     INT  not null    PRIMARY KEY ,
+       date_commande   DATE      with   DEFAULT  ,
+       adresse         VARCHAR(255),
+       id_client       INT    ,
+       STATUT          CHAR(1)  WITH DEFAULT 'C' ,
+       CONSTRAINT      fk_commandes_clients FOREIGN KEY(id_client)
+       REFERENCES clients(id_client)
+       on delete restrict
+       )
+       IN DATABASE ZERDB ;
+   COMMIT ;
+

@@ -1,0 +1,21 @@
+-- INSERTION DANS LA TABLE DATETR
+-----------------------------------
+     INSERT INTO DATETR
+          (DATE_TRT, STATUT_DATETR, LIBELLE)
+          VALUES
+          (CURRENT DATE - 13 DAYS, 'F', 'RAS' )
+     ;
+    SELECT *
+       FROM DATETR
+       ORDER  BY DATE_TRT
+       ;
+     INSERT INTO DATETR
+          (DATE_TRT, STATUT_DATETR, LIBELLE)
+          VALUES
+          (CURRENT DATE - 14 DAYS, 'F', 'RAS' )
+     ;
+    SELECT *
+       FROM DATETR
+       ORDER  BY DATE_TRT
+       ;
+       ;

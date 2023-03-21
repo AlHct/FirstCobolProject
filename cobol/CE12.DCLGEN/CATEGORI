@@ -1,0 +1,22 @@
+      ******************************************************************
+      * DCLGEN TABLE(UFA02.CATEGORIES)                                 *
+      *        LIBRARY(UFA02.CE12.DCLGEN(CATEGORI))                    *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE UFA02.CATEGORIES TABLE
+           ( ID_CATEGORIE                   INTEGER NOT NULL,
+             LIBELLE                        VARCHAR(100) NOT NULL
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE UFA02.CATEGORIES                   *
+      ******************************************************************
+       01  DCLCATEGORIES.
+           10 ID-CATEGORIE         PIC S9(9) USAGE COMP.
+           10 LIBELLE.
+              49 LIBELLE-LEN       PIC S9(4) USAGE COMP.
+              49 LIBELLE-TEXT      PIC X(100).
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 2       *
+      ******************************************************************

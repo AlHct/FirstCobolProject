@@ -1,0 +1,391 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. MAJAPPRO.
+
+      *=========================================================*
+      *                                                         *
+      * SQUELETTE DE PROGRAMME COBOL                            *
+      *                                                         *
+      *=========================================================*
+
+       ENVIRONMENT DIVISION.
+
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+            SELECT FIN-AREAPRO ASSIGN TO INAREAPRO
+            FILE STATUS IS WS-FS-FIN-AREAPRO.
+            SELECT FOU-MAJAP ASSIGN TO OUTMAJAP
+            FILE STATUS IS WS-FS-FOU-MAJAP.
+       DATA DIVISION.
+
+       FILE SECTION.
+
+       FD FIN-AREPRO
+             RECORDING MODE IS F.
+       01 FS-FIN-AREPRO PIC X(45).
+
+       FD FOU-MAJAP
+             RECORDING MODE IS F.
+       01 FS-FOU-MAJAP PIC X(80).
+
+       WORKING-STORAGE SECTION.
+
+       01     WS-FIN-AREPRO.
+         05 WS-FIN-NOMBRE PIC 99.
+         05 FILLER        PIC X(43).
+
+       01     WS-FOU-MAJAP.
+         05 FILLER        PIC X(45).
+
+      *STATUS
+       01 WS-FS-FIN-AREPRO PIC XX.
+       01 WS-FS-FOU-MAJAP PIC XX.
+
+      *COMPTEUR LIGNES TABLES ET FICHIER MAJAP
+       01  MAJAP-CPTENR        PIC 9(9) VALUE ZERO.
+       01 WS-CTR-FIN-AREAPRO PIC S999 COMP-3 VALUE 0.
+       01 WS-CTR-FOU-MAJAP   PIC S9(5) COMP-3 VALUE ZERO.
+       01 WS-CTE-FIN-AREAPRO PIC ZZ9.
+       01 WS-CTE-FOU-MAJAP   PIC -(3)B--9.
+
+      *SQLCODE
+       01     W-SQLCODE          PIC -(3)9 VALUE ZERO.
+
+      *CODE PROGRAMME
+       01     W-PROGE            PIC X(8) VALUE 'MAJAPPRO'.
+
+      * DB2 : SQLCA
+           EXEC SQL
+                INCLUDE SQLCA
+           END-EXEC.
+
+      * TABLES DB2
+           EXEC SQL
+                INCLUDE PRODUITS
+           END-EXEC.
+
+           EXEC SQL
+                INCLUDE APPROVIS
+           END-EXEC.
+
+           EXEC SQL
+                INCLUDE PANIERSS
+           END-EXEC.
+
+           EXEC SQL
+                INCLUDE COMMANDE
+           END-EXEC.
+
+      * DECLARE CURSEUR TABLES
+           EXEC SQL DECLARE MAJAP-CURSEUR CURSOR FOR
+             SELECT
+                    "P", ID_PRODUIT, VALUE (MAJAP,0),
+                      VALUE (QUOTITE,0), VALUE (QUANTITE_ALERTE,0)
+                   FROM  PRODUITS
+             UNION ALL
+             SELECT
+                    "A", ID_PRODUIT, VALUE (QUANTITE,0), 0, 0
+                   FROM  APPRO
+                   WHERE STATUT = "C"
+             UNION ALL
+             SELECT
+                    "C", ID_PRODUIT, VALUE (QUANTITE,0), 0, 0
+                   FROM  PANIERS P, COMMANDES C
+                   WHERE C.ID_COMMANDE = P.ID_COMMANDE
+                      AND STATUT = "C"
+             ORDER BY 2
+           END-EXEC.
+
+       01 WS-AREPRO-FLAG   PIC XXX VALUE SPACE.
+       01 WS-ORIGINE      PIC X.
+       01 WS-ID-PRODUIT   PIC S9(9) COMP.
+       01 WS-ID-PRODUIT-C PIC S9(9) COMP.
+       01 WS-QUANTITE     PIC S9(9) COMP.
+       01 WF00.
+          05 WF-ORIGINE             PIC     X.
+          05 WF-ID-PRODUIT          PIC S9(5).
+          05 WF-MAJAP               PIC S9(5).
+          05 WF-QUOTITE             PIC S9(5).
+          05 WF-QUANTITE-ALERTE     PIC S9(5).
+          05 WF-QUANTITE-COMMANDEE  PIC S9(5).
+          05 WF-QUANTITE-APPRO      PIC S9(5).
+          05 FILLER                 PIC X(49).
+
+      ***********************************************************
+
+       PROCEDURE DIVISION.
+
+       0000-DEBUT-DEB.
+
+      * OUVRIR UN FICHIER
+           PERFORM 6100-AREAPRO-OUV-DEB
+           THRU    6100-AREAPRO-OUV-FIN.
+
+           PERFORM 6200-MAJAP-OUV-DEB
+           THRU    6200-MAJAP-OUV-FIN.
+
+           DISPLAY 'DEBUT DU PROGRAMME ' W-PROGE.
+
+           PERFORM 6000-OPEN-MAJAP-DEB
+           THRU    6000-OPEN-MAJAP-FIN.
+
+      * LIRE UN FICHIER
+           PERFORM 6110-AREAPRO-LEC-DEB
+           THRU    6110-AREAPRO-LEC-FIN.
+
+           PERFORM 6020-FETCH-MAJAP-DEB
+           THRU    6020-FETCH-MAJAP-FIN.
+
+           MOVE SPACE TO WF00.
+
+           INITIALIZE WF00.
+
+           IF SQLCODE = ZERO
+              DISPLAY '********************************'
+              DISPLAY 'ID-PRODUIT : ' WS-ID-PRODUIT   '/'
+              MOVE WS-ID-PRODUIT TO WS-ID-PRODUIT-C
+              DISPLAY 'ID-PRODUIT CUMULE : ' WS-ID-PRODUIT-C '/'
+              DISPLAY '********************************'
+           END-IF.
+
+           PERFORM 1000-CALCUL-DEB
+           THRU    1000-CALCUL-FIN
+                  UNTIL SQLCODE NOT = ZERO.
+
+           PERFORM 6010-CLOSE-MAJAP-DEB
+           THRU    6010-CLOSE-MAJAP-FIN.
+
+      * FERMETURE FICHIERS
+           PERFORM 6120-AREAPRO-CLO-DEB
+           THRU    6120-AREAPRO-CLO-FIN.
+
+           PERFORM 6220-MAJAP-CLO-DEB
+           THRU    6220-MAJAP-CLO-FIN.
+
+      * AFFICHAGE DES STAT
+           PERFORM 8999-STAT-DEB
+           THRU    8999-STAT-FIN.
+
+           PERFORM 9998-FIN-NORMALE-DEB
+           THRU    9998-FIN-NORMALE-FIN.
+
+       0000-DEBUT-FIN. EXIT.
+
+       1000-CALCUL-DEB.
+           IF WS-ID-PRODUIT = WS-ID-PRODUIT-C
+                 PERFORM 2000-RESTOCK-DEB
+                 THRU    2000-RESTOCK-FIN
+           ELSE  PERFORM 2010-DESTOCK-DEB
+                 THRU    2010-DESTOCK-FIN
+           END-IF.
+
+           PERFORM 6020-FETCH-MAJAP-DEB
+           THRU    6020-FETCH-MAJAP-FIN.
+       1000-CALCUL-FIN.
+           EXIT.
+
+       2000-RESTOCK-DEB.
+           PERFORM 7000-CUMUL-DEB
+           THRU    7000-CUMUL-FIN.
+
+       2000-RESTOCK-FIN.
+           EXIT.
+
+       2010-DESTOCK-DEB.
+
+           PERFORM 6110-MAJAP-ECR-DEB
+           THRU    6110-MAJAP-ECR-FIN.
+
+           DISPLAY 'ID-PRODUIT ' WS-ID-PRODUIT ' EST DIFFERENT DE'
+                  ' CELUI CUMULE ' WS-ID-PRODUIT-C ' .'.
+           DISPLAY 'WF-ID-PRODUIT : ' WF-ID-PRODUIT.
+           DISPLAY 'WF-MAJAP      : ' WF-MAJAP .
+           DISPLAY 'WF-QUOTITE    : ' WF-QUOTITE .
+           DISPLAY 'WF-QUANTITE-ALERTE : ' WF-QUANTITE-ALERTE.
+           DISPLAY 'WF-QUANTITE-COMMANDEE : '
+                    WF-QUANTITE-COMMANDEE .
+           DISPLAY 'WF-QUANTITE-APPRO : '
+                    WF-QUANTITE-APPRO.
+
+           INITIALIZE WF00.
+
+           MOVE WS-ID-PRODUIT TO WS-ID-PRODUIT-C.
+
+           PERFORM 7000-CUMUL-DEB
+           THRU    7000-CUMUL-FIN.
+
+           IF SQLCODE = ZERO
+              DISPLAY '********************************'
+              DISPLAY 'ID-PRODUIT : ' WS-ID-PRODUIT   '/'
+              MOVE WS-ID-PRODUIT TO WS-ID-PRODUIT-C
+              DISPLAY 'ID-PRODUIT CUMULE : ' WS-ID-PRODUIT-C '/'
+              DISPLAY '********************************'
+           END-IF.
+
+       2010-DESTOCK-FIN.
+           EXIT.
+
+       6000-OPEN-MAJAP-DEB.
+           EXEC SQL
+                OPEN MAJAP-CURSEUR
+           END-EXEC .
+
+       6000-OPEN-MAJAP-FIN.
+           EXIT.
+
+       6010-CLOSE-MAJAP-DEB.
+           EXEC SQL
+                CLOSE MAJAP-CURSEUR
+           END-EXEC .
+
+       6010-CLOSE-MAJAP-FIN.
+           EXIT.
+
+       6020-FETCH-MAJAP-DEB.
+           EXEC SQL
+                FETCH MAJAP-CURSEUR
+                 INTO
+                     :WS-ORIGINE,
+                     :WS-ID-PRODUIT,
+                     :WS-QUANTITE,
+                     :QUOTITE,
+                     :QUANTITE-ALERTE
+           END-EXEC.
+
+           EVALUATE SQLCODE
+              WHEN ZERO ADD 1 TO MAJAP-CPTENR
+              WHEN 100 DISPLAY 'FIN'
+              WHEN OTHER MOVE SQLCODE TO W-SQLCODE
+                         DISPLAY 'SQLCODE : ' SQLCODE
+                   PERFORM 9999-ERREUR-PROGRAMME-DEB
+                   THRU    9999-ERREUR-PROGRAMME-FIN
+           END-EVALUATE.
+
+       6020-FETCH-MAJAP-FIN.
+           EXIT.
+
+       6100-AREAPRO-OUV-DEB.
+           OPEN INPUT FIN-AREAPRO.
+           IF WS-FS-FIN-AREAPRO NOT = ZERO
+              DISPLAY 'ERREUR OPEN AREAPRO' WS-FS-FIN-AREAPRO
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+       6100-AREAPRO-OUV-FIN. EXIT.
+
+       6110-AREAPRO-LEC-DEB.
+           READ FIN-AREAPRO
+               INTO WS-FIN-AREAPRO
+              AT END MOVE 'FIN' TO WS-AREAPRO-FLAG.
+           IF  WS-FS-FIN-AREAPRO NOT = '10' AND NOT = ZERO
+              DISPLAY 'ERREUR READ AREAPRO ' WS-FS-FIN-AREAPRO
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+           IF WS-FS-FIN-AREAPRO = '10'
+              MOVE 'FIN' TO WS-AREAPRO-FLAG
+              MOVE HIGH-VALUE TO WS-FIN-AREAPRO
+           END-IF.
+           IF WS-FS-FIN-AREAPRO = ZERO
+              ADD 1 TO WS-CTR-FIN-AREAPRO
+           END-IF.
+       6110-AREAPRO-LEC-FIN. EXIT.
+
+       6120-AREAPRO-CLO-DEB.
+           CLOSE FIN-AREAPRO.
+           IF WS-FS-FIN-AREAPRO NOT = ZERO
+             DISPLAY 'ERREUR CLOSE AREAPRO' WS-FS-FIN-AREAPRO
+             PERFORM 9999-ERREUR-PROGRAMME-DEB
+             THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+       6120-AREAPRO-CLO-FIN. EXIT.
+
+       6200-MAJAP-OUV-DEB.
+           OPEN OUTPUT FOU-MAJAP.
+           IF WS-FS-FOU-MAJAP NOT = ZERO
+              DISPLAY 'ERREUR OPEN OUTPUT MAJAP ' WS-FS-FOU-MAJAP
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+
+       6200-MAJAP-OUV-FIN. EXIT.
+
+       6210-MAJAP-ECR-DEB.
+           WRITE FS-FOU-MAJAP
+                 FROM WF00.
+           IF WS-FS-FOU-MAJAP NOT = ZERO
+              DISPLAY 'ERREUR ECRITURE MAJAP ' WS-FS-FOU-MAJAP
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+           IF WS-FS-FOU-MAJAP = ZERO
+              ADD 1 TO WS-CTR-FOU-MAJAP
+           END-IF.
+
+       6210-MAJAP-ECR-FIN. EXIT.
+
+       6220-MAJAP-CLO-DEB.
+           CLOSE FOU-MAJAP.
+           IF WS-FS-FOU-MAJAP NOT = ZERO
+              DISPLAY 'ERREUR CLOSE MAJAP' WS-FS-FOU-MAJAP
+              PERFORM 9999-ERREUR-PROGRAMME-DEB
+              THRU    9999-ERREUR-PROGRAMME-FIN
+           END-IF.
+
+       6220-MAJAP-CLO-FIN. EXIT.
+
+       7000-CUMUL-DEB.
+           MOVE WS-ORIGINE      TO WF-ORIGINE   .
+           MOVE WS-ID-PRODUIT-C TO WF-ID-PRODUIT.
+           IF WS-ORIGINE = "C"
+              ADD WS-QUANTITE TO WF-QUANTITE-COMMANDEE
+           END-IF.
+           IF WS-ORIGINE = "A"
+              ADD WS-QUANTITE TO WF-QUANTITE-APPRO
+           END-IF.
+           IF WS-ORIGINE = "P"
+              MOVE WS-QUANTITE TO WF-MAJAP
+              MOVE QUOTITE TO WF-QUOTITE
+              MOVE QUANTITE-ALERTE TO WF-QUANTITE-ALERTE
+           END-IF.
+
+       7000-CUMUL-FIN. EXIT.
+
+       8999-STAT-DEB.
+           DISPLAY ' '.
+           DISPLAY '*********************************'.
+           DISPLAY '*STATISTIQUES DU PROGRAMME ' WS-NOM-PGM.
+           DISPLAY '*********************************'.
+           DISPLAY '                                 '.
+           MOVE WS-CTR-FIN-AREAPRO TO WS-CTE-FIN-AREAPRO.
+           MOVE WS-CTR-FOU-SALTOT TO WS-CTE-FOU-SALTOT.
+           DISPLAY 'ENREGISTREMENTS LUS AREAPRO   :   ' WS-CTE-FIN-AREAPRO
+           DISPLAY 'ENREGISTREMENTS ECRITS : ' WS-CTE-FOU-SALTOT.
+           DISPLAY ' '.
+       8999-STAT-FIN. EXIT.
+
+       9998-FIN-NORMALE-DEB.
+           DISPLAY '*********************************'.
+           DISPLAY '*FIN NORMALE DU PROGRAMME ' W-PROGE.
+           DISPLAY '*********************************'.
+           DISPLAY ' '.
+           GOBACK.
+
+       9998-FIN-NORMALE-FIN. EXIT.
+
+       9999-ERREUR-PROGRAMME-DEB.
+           DISPLAY '*********************************'.
+           DISPLAY '*FIN ANORMALE DU PROGRAMME ' W-PROGE.
+           DISPLAY '*UNE ANOMALIE A ETE DETECTEE*'.
+           DISPLAY '*********************************'.
+           DISPLAY 'WS-FS-FIN-AREAPRO   :  ' WS-FS-FIN-AREAPRO.
+           DISPLAY 'WS-FS-FOU-MAJAP  :  ' WS-FS-FOU-MAJAP.
+           MOVE WS-CTR-FIN-AREAPRO TO WS-CTE-FIN-AREAPRO.
+           MOVE WS-CTR-FOU-MAJAP TO WS-CTE-FOU-MAJAP.
+           DISPLAY 'ENREGISTREMENTS LUS AREAPRO      ' WS-CTE-FIN-AREAPRO
+           DISPLAY 'ENREGISTREMENTS ECRITS         ' WS-CTE-FOU-MAJAP.
+           MOVE SQLCODE TO W-SQLCODE.
+           DISPLAY W-SQLCODE.
+           GOBACK.
+
+       9999-ERREUR-PROGRAMME-FIN. EXIT.
+

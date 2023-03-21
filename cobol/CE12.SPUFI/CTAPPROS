@@ -1,0 +1,26 @@
+   --  DROP INDEX  IXTCLIE_ID ;
+   --  DROP TABLE  APPRO      ;
+   --  COMMIT ;
+ --------------------
+   --  select * from APPRO    ;
+   --  select * from produits ;
+-----------------------------------------------------------------
+-- PROVIENT(#id_produit,#id_fournisseur prix_achat)
+-- achats
+-----------------------------------------------------------------
+     CREATE TABLE APPRO(
+        id_fournisseur  INT   not null ,
+	       id_produit      INT   not null ,
+        statut          char(1) not null with default 'C' ,
+        prix_achat      FLOAT,
+        quantite        INT,
+        PRIMARY KEY(id_produit, id_fournisseur),
+        CONSTRAINT fk_produits_APPRO FOREIGN KEY(id_produit)
+            REFERENCES produits(id_produit),
+        CONSTRAINT fk_fournisseurs_APPRO
+                                      FOREIGN KEY(id_fournisseur)
+            REFERENCES fournisseurs(id_fournisseur)
+      )
+       IN DATABASE ZERDB
+      ;
+      commit;

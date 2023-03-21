@@ -1,0 +1,28 @@
+      ******************************************************************
+      * DCLGEN TABLE(UFA02.COMMANDES)                                  *
+      *        LIBRARY(UFA02.CE12.DCLGEN(COMMANDE))                    *
+      *        LANGUAGE(COBOL)                                         *
+      *        QUOTE                                                   *
+      * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+      ******************************************************************
+           EXEC SQL DECLARE UFA02.COMMANDES TABLE
+           ( ID_COMMANDE                    INTEGER NOT NULL,
+             DATE_COMMANDE                  DATE,
+             ADRESSE                        VARCHAR(255),
+             ID_CLIENT                      INTEGER,
+             STATUT                         CHAR(1)
+           ) END-EXEC.
+      ******************************************************************
+      * COBOL DECLARATION FOR TABLE UFA02.COMMANDES                    *
+      ******************************************************************
+       01  DCLCOMMANDES.
+           10 ID-COMMANDE          PIC S9(9) USAGE COMP.
+           10 DATE-COMMANDE        PIC X(10).
+           10 ADRESSE.
+              49 ADRESSE-LEN       PIC S9(4) USAGE COMP.
+              49 ADRESSE-TEXT      PIC X(255).
+           10 ID-CLIENT            PIC S9(9) USAGE COMP.
+           10 STATUT               PIC X(1).
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 5       *
+      ******************************************************************

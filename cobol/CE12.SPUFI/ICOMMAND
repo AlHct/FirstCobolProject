@@ -1,0 +1,104 @@
+-- insertion dans la table commandes
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (1, '2021-07-21 00:02:33', '0 La Follette Plaza', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (2, '2020-10-20 10:51:21', '36 Grim Alley', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (3, '2020-12-22 19:40:02', '5 Kensington Road', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (4, '2019-08-26 09:43:49', '054 Susan Drive', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (5, '2019-06-11 06:13:26', '25045 Little Fleur Parkway', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (6, '2019-09-25 09:08:22', '7 2nd Place', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (7, '2021-05-09 23:19:55', '711 Mariners Cove Park', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (8, '2019-05-10 03:35:12', '5 Toban Alley', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (9, '2019-05-22 14:59:56', '0 Dawn Pass', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (10, '2020-01-01 18:23:29', '06 Lyons Junction', 19);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (11, '2019-10-11 20:09:21', '38 Clemons Plaza', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (12, '2019-12-02 02:42:50', '6195 Commercial Way', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (13, '2021-04-02 21:50:18', '5 Michigan Alley', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (14, '2020-11-14 16:44:42', '49 Merrick Lane', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (15, '2020-07-03 11:12:55', '77499 North Way', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (16, '2020-03-29 03:58:17', '054 Becker Circle', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (17, '2020-10-01 18:47:22', '6620 Transport Parkway', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (18, '2021-01-16 13:42:40', '916 Tennyson Park', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (19, '2020-10-02 13:57:39', '17828 Anderson Avenue', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (20, '2019-02-28 20:18:22', '9 Sunfield Point', 19);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (21, '2020-12-24 10:11:51', '47 Linden Drive', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (22, '2021-03-29 21:59:52', '532 Independence Drive', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (23, '2020-04-13 15:06:15', '9 East Court', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (24, '2020-10-16 19:51:20', '26064 Sage Drive', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (25, '2019-09-28 19:58:19', '447 Mariners Cove Park', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (26, '2019-07-23 03:26:27', '9641 Maywood Trail', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (27, '2020-03-08 10:03:55', '066 Coolidge Lane', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (28, '2021-01-24 16:39:07', '96 Acker Trail', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (29, '2019-10-12 12:28:05', '124 Trailsway Street', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (30, '2021-03-02 20:06:06', '05843 4th Court', 19);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (31, '2021-03-02 23:41:38', '4184 Ohio Terrace', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (32, '2021-05-21 00:19:42', '16 Moulton Crossing', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (33, '2020-04-22 08:48:04', '68049 Russell Alley', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (34, '2019-05-16 02:12:28', '0103 Stoughton Street', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (35, '2021-06-17 12:45:58', '93700 Kings Avenue', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (36, '2019-08-06 18:09:37', '14 Blackbird Center', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (37, '2019-04-20 17:18:23', '11 Lakeland Lane', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (38, '2020-04-30 14:25:11', '64298 Iowa Pass', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (39, '2020-03-20 10:38:31', '44 Continental Avenue', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (40, '2021-01-09 01:21:00', '44 Sheridan Avenue', 19);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (41, '2019-05-17 12:48:42', '0 Hanover Court', 1);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (42, '2020-04-08 17:52:14', '1 Wayridge Place', 3);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (43, '2020-06-23 06:07:00', '1798 Esker Hill', 5);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (44, '2020-09-14 23:56:44', '57370 Dawn Street', 7);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (45, '2019-11-06 18:54:42', '61 Northview Pass', 9);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (46, '2020-04-29 16:21:36', '064 Bobwhite Plaza', 11);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (47, '2020-12-11 00:33:45', '876 Oriole Point', 13);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (48, '2020-11-26 23:27:01', '6125 Hoepker Junction', 15);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (49, '2020-02-07 04:30:33', '9176 Starling Parkway', 17);
+insert into commandes (id_commande, date_commande, adresse, id_client)
+values (50, '2019-01-21 12:27:11', '45 Fremont Court', 19);
+
+     commit ;
+     select * from  commandes   ;
