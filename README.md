@@ -17,4 +17,4 @@ Le programme D6LIVRAISON permettait de mettre à jour les stock et quantités de
 
 Le dossier contient également les codes d'éxecution JCL (CNTL, PROJET) ainsi que les codes d'importation des tables DB2 (SPUFI, DCLGEN).
 
-Pour une meileure compréhension du programme, vous pouvez vous référer au dossier Modèle qui contient des diagrammes modélisant le programe ainsi que la représentation meurise des tables DB2 et les schémas des algorithme des programmes individuels.
+Pour une meileure compréhension du programme, vous pouvez vous référer au dossier Modèle qui contient des diagrammes modélisant le programe ainsi que la représentation merise des tables DB2 et les schémas des algorithmes des programmes individuels.
