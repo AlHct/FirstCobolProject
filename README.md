@@ -15,6 +15,6 @@ Le programme D6MAJAPP permettait de déterminer les quantités à réapprovision
 
 Le programme D6LIVRAISON permettait de mettre à jour les stock et quantités des différents produits des tables Produits et clients.
 
-Le dossier contient également les codes d'éxecution JCL (CNTL, PROJET) ainsi que les codes d'importation des tables DB2 (SPUFI, DCLGEN).
+Le dossier contient également les codes d'éxecution JCL (CNTL, D6PROJET) ainsi que les codes d'importation des tables DB2 (SPUFI, DCLGEN).
 
 Pour une meileure compréhension du programme, vous pouvez vous référer au dossier Modèle qui contient des diagrammes modélisant le programe ainsi que la représentation merise des tables DB2 et les schémas des algorithmes des programmes individuels.
